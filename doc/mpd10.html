@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Invoking mpd</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd9.html"><EM>Running Mpd</EM></A>
+ <b>:</b> <EM>Invoking mpd</EM><BR>
+<b>Previous:</b> <A HREF="mpd9.html"><EM>Running Mpd</EM></A><BR>
+<b>Next:</b> <A HREF="mpd11.html"><EM>Configuration file format</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="10"></A>3.1. Invoking mpd<A NAME="invoke"></A></H2>
+<p>Mpd is invoked by first setting up your configuration
+files, and then running
+<blockquote><code>
+<code><b>mpd [ <em>options</em> ] [ <em>configuration</em> ] </b></code>
+</code></blockquote>
+
+On startup mpd run commands from the <code>startup</code> label.
+After that, if <code><em>configuration</em></code> is supplied,
+mpd looks in <code>mpd.conf</code> for a matching label,
+and runs the corresponding commands. If 
+<code><em>configuration</em></code> is not supplied,
+mpd looks for the configuration named <code>default</code>.</p>
+<p>Mpd can either be run in interactive mode or in the
+background as a daemon. In interactive mode mpd
+accepts commands typed at the console.</p>
+<p>Mpd understands the following command line options.
+Each option has a short, single character form, as
+well as an equivalent long form.</p>
+<p>
+<dl>
+
+<dt><b><code>-b  --background</code></b><dd><p>Run as a background daemon.</p>
+
+<dt><b><code>-d  --directory <em>dir</em></code></b><dd><p>This option allows you to specify a different directory
+for the mpd configuration files other than the default
+<code>/usr/local/etc/mpd</code>.</p>
+
+<dt><b><code>-f  --file <em>filename</em></code></b><dd><p>Specify an initial configuration file other than the default,
+<code>mpd.conf</code>.</p>
+
+<dt><b><code>-o  --one-shot</code></b><dd><p>This option forces mpd terminate itself after the last link disappear.
+Link templates are not counted as links.</p>
+
+<dt><b><code>-p  --pidfile <em>filename</em></code></b><dd><p>Mpd will open and lock <code><em>filename</em></code> and
+write its process ID before starting. If another mpd
+process is already running, mpd will not start.
+The default is <code>/var/run/mpd.pid</code>.</p>
+
+<dt><b><code>-k  --kill</code></b><dd><p>With this option, pd will attempt to kill any existing mpd
+process before beginning execution. The previous process
+must have written its process ID in the PID file
+<code>/var/run/mpd.pid</code> (or the file you specify with
+the <code>--pidfile</code> option).</p>
+
+<dt><b><code>-s  --syslog-ident <em>ident</em></code></b><dd><p>Mpd normally logs via <code>syslog(3)</code> with the identifier
+<code>mpd</code>. This option allows you to change that identifier.</p>
+
+<dt><b><code>-m  --pam-service <em>service</em></code></b><dd><p>Mpd normally invoke <code>pam(3)</code> with the service
+<code>mpd</code>. This option allows you to change that service.</p>
+
+<dt><b><code>-v  --version</code></b><dd><p>Displays the version number of mpd and exits.</p>
+
+<dt><b><code>-h  --help</code></b><dd><p>Displays a usage message and exits.</p>
+
+</dl>
+</p>
+<p>Mpd responds to the following signals while it is running:</p>
+<p>
+<dl>
+
+<dt><b>SIGTERM</b><dd><p>Attempt to gracefully shut down all active connections and exit.</p>
+
+<dt><b>SIGUSR1</b><dd><p>This signal causes mpd to initiate a connection
+with the first link. If mpd is already
+attempting to connect, this signal has no effect.</p>
+
+<dt><b>SIGUSR2</b><dd><p>This signal has the opposite effect, namely, it causes
+mpd to close the first link. If the link
+is already in a closed state, this signal has no effect.</p>
+
+</dl>
+</p>
+
+
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd9.html"><EM>Running Mpd</EM></A>
+ <b>:</b> <EM>Invoking mpd</EM><BR>
+<b>Previous:</b> <A HREF="mpd9.html"><EM>Running Mpd</EM></A><BR>
+<b>Next:</b> <A HREF="mpd11.html"><EM>Configuration file format</EM></A>
+
+
+
+</BODY>
+</HTML>

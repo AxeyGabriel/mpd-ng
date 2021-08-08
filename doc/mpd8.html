@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Building mpd</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd5.html"><EM>Installation</EM></A>
+ <b>:</b> <EM>Building mpd</EM><BR>
+<b>Previous:</b> <A HREF="mpd7.html"><EM>Installing mpd</EM></A><BR>
+<b>Next:</b> <A HREF="mpd9.html"><EM>Running Mpd</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="8"></A>2.3. Building mpd<A NAME="building"></A></H2>
+<p>If you choose to build mpd yourself to customize it, the
+process is straightforward. First, edit the <code>Makefile</code>
+to define (or undefine) the various device types and options
+you want to support. Run 'configure' script and then type
+<code>make depend all</code> to rebuild the binary.</p>
+<p>The various build-time definitions in the Makefile are below:</p>
+<p>
+<dl>
+
+<dt><b><code>MPD_CONF_DIR</code></b><dd><p>The default configuration directory where mpd looks for
+<code>mpd.conf</code>, etc.</p>
+
+<dt><b><code>PHYSTYPE_MODEM</code></b><dd>
+<dt><b><code>PHYSTYPE_TCP</code></b><dd>
+<dt><b><code>PHYSTYPE_UDP</code></b><dd>
+<dt><b><code>PHYSTYPE_NG_SOCKET</code></b><dd>
+<dt><b><code>PHYSTYPE_PPTP</code></b><dd>
+<dt><b><code>PHYSTYPE_L2TP</code></b><dd>
+<dt><b><code>PHYSTYPE_PPPOE</code></b><dd>
+<p>Define these to include support for the corresponding device type.</p>
+
+<dt><b><code>ENCRYPTION_DES</code></b><dd>
+<p>These enable support for the corresponding encryption types.</p>
+
+<dt><b><code>SYSLOG_FACILITY</code></b><dd><p>Mpd normally logs via <code>syslog(3)</code> using the facility
+<code>LOG_DAEMON</code>. You can customize the facility here.</p>
+
+</dl>
+</p>
+
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd5.html"><EM>Installation</EM></A>
+ <b>:</b> <EM>Building mpd</EM><BR>
+<b>Previous:</b> <A HREF="mpd7.html"><EM>Installing mpd</EM></A><BR>
+<b>Next:</b> <A HREF="mpd9.html"><EM>Running Mpd</EM></A>
+
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>PPPoE device type commands</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd42.html"><EM>Device Types</EM></A>
+ <b>:</b> <EM>PPPoE device type commands</EM><BR>
+<b>Previous:</b> <A HREF="mpd48.html"><EM>L2TP device type commands</EM></A><BR>
+<b>Next:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="49"></A>5.7. PPPoE device type commands<A NAME="pppoe"></A></H2>
+<p>This chapter describes commands that are specific to PPPoE type links.
+These commands apply to the currently active link, and are only
+valid if the currently active link has type <b>pppoe</b>.</p>
+<p>PPPoE requires two pieces of configuration information: the name
+of the Ethernet interface to use, and a service name, which should
+be supplied by your ISP. If you do not have a service name, then
+the empty string (the default) often suffices.</p>
+<p>DSL Forum vendor-specific Circuit-ID/Remote-ID PPPoE tags extraction
+supported in server mode.</p>
+<p>
+<dl>
+
+<dt><b><code>set pppoe iface <em>interface-name</em></code></b><dd><p>Set the name of the Ethernet interface to use. PPPoE does
+not affect normal use of the interface.</p>
+
+<dt><b><code>set pppoe service <em>service-name</em></code></b><dd><p>Sets the requested PPPoE service name. Setting service name to "*" 
+on link with allowed incoming connections allows to accept incoming 
+connection requests with any service name specified.</p>
+<p>Since FreeBSD 6.3-STABLE/7.0-STABLE of 2008-01-30 it is possible to use
+"AC-Name\Service-Name" syntax to request specified access concentrator
+for outgoing connection.</p>
+<p>The default is "*".</p>
+
+<dt><b><code>set pppoe acname <em>name</em></code></b><dd><p>Set name of this PPPoE access concentrator to be sent to clients.
+If not specified, local hostname will be used.</p>
+
+<dt><b><code>set pppoe mac-format <em>format</em></code></b><dd><p>Set RADIUS server attribute 31 MAC format as:
+<pre>
+unformatted	aabbccddeeff
+unix-like	aa:bb:cc:dd:ee:ff
+cisco-like	aabb.ccdd.eeff
+ietf		aa-bb-cc-dd-ee-ff
+</pre>
+</p>
+<p>The default is "unformatted".</p>
+
+<dt><b><code>set pppoe max-payload <em>size</em></code></b><dd><p>Set PPP-Max-Payload PPPoE tag (RFC4638).
+This option works when mpd5 acts as PPPoE client only.
+This option takes precedence over both <code>set link mtu</code> and
+<code>set link mru</code> options, if PPPoE server agrees with our setting.</p>
+
+</dl>
+
+</p>
+
+
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd42.html"><EM>Device Types</EM></A>
+ <b>:</b> <EM>PPPoE device type commands</EM><BR>
+<b>Previous:</b> <A HREF="mpd48.html"><EM>L2TP device type commands</EM></A><BR>
+<b>Next:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A>
+
+
+
+</BODY>
+</HTML>

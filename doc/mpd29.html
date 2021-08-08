@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Authentication, Authorization and Accounting (AAA)</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Authentication, Authorization and Accounting (AAA)</EM><BR>
+<b>Previous:</b> <A HREF="mpd28.html"><EM>Interface layer</EM></A><BR>
+<b>Next:</b> <A HREF="mpd30.html"><EM>RADIUS</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="29"></A>4.10. Authentication, Authorization and Accounting (AAA)<A NAME="auth"></A></H2>
+
+<p>Mpd currently supports authentication against (tried 
+in this order) 
+<A HREF="mpd31.html#extauth">external script</A>,
+<A HREF="mpd30.html#radius">RADIUS</A>, PAM, systems password database 
+(<code>master.passwd</code>), OPIE and internal <code>mpd.secret</code> file.</p>
+<p>This chapter describes commands that configure the Authentication 
+subsystem of LCP layer. All of these commands apply to the currently
+active link. </p>
+<p>
+<dl>
+
+<dt><b><code>set auth authname <em>login</em></code></b><dd><p>This command sets the authentication login name associated with
+the link (in multi-link PPP, though each link is authenticated
+individually, they all must use the same login name). The
+<code><em>login</em></code> may have a corresponding entry in
+<code>mpd.secret</code>. The <code><em>login</em></code> and password
+are used when the peer requires us to authenticate ourselves.</p>
+
+<dt><b><code>set auth password <em>password</em></code></b><dd><p>This command is normally not necessary. It causes mpd to <em>not</em>
+lookup the password corresponding to <code><em>login</em></code>
+in <code>mpd.secret</code>, but rather to use
+<code><em>password</em></code> instead. If you're too lazy to set up
+<code>mpd.secret</code> and are only dialing out, you can use this
+command instead.</p>
+
+<dt><b><code>set auth max-logins <em>num</em> [CI]</code></b><dd><p>Limit the max. amount of concurrent logins with the same username.
+If set to zero, then this feature is disabled. If CI argument is present
+login comparasion will be case insensitive.</p>
+
+<dt><b><code>set auth acct-update <em>seconds</em></code></b><dd><p>Enables periodic accounting updates, if set to a value greater then 
+zero.</p>
+
+<dt><b><code>set auth timeout <em>seconds</em></code></b><dd><p>Sets the timeout for the whole authentication process.
+It defaults to 40 seconds. 
+Under some circumstances the value should be changed; it usually 
+depends on the authentication backend and protocol.
+E.g. when using EAP with a slow RADIUS server this value should be increased.</p>
+
+<dt><b><code><br>set auth extauth-script <em>script</em><br>
+set auth extacct-script <em>script</em></code></b><dd><p>Sets scripts names for external authentication and accounting.</p>
+
+<dt><b><code><br>set auth enable <em>option ...</em><br>
+set auth disable <em>option ...</em></code></b><dd>
+</dl>
+</p>
+
+
+<p>The options available are:</p>
+<p>
+<dl>
+
+<dt><b><code>internal</code></b><dd><p>Enables authentication against the <code>mpd.secret</code> file.</p>
+<p>Default <code><b>enable</b></code>.</p>
+
+<dt><b><code>radius-auth</code></b><dd><p>Enable authentication via RADIUS. For details see
+<A HREF="mpd30.html#radius">the RADIUS chapter</A>.</p>
+<p>Default <code><b>disable</b></code>.</p>
+
+<dt><b><code>radius-acct</code></b><dd><p>Enable per link accounting via RADIUS. For details see
+<A HREF="mpd30.html#radius">the RADIUS chapter</A>.</p>
+<p>Default <code><b>disable</b></code>.</p>
+
+<dt><b><code>ext-auth</code></b><dd><p>Enable authentication by calling external script.
+This method pretended to be a fullfeatured alternative to the 
+<code><b>radius-auth</b></code>. For details see
+<A HREF="mpd31.html#extauth">the External authentication chapter</A>.</p>
+<p>Default <code><b>disable</b></code>.</p>
+
+<dt><b><code>ext-acct</code></b><dd><p>Enable accounting by calling external script.
+This method pretended to be a fullfeatured alternative to the 
+<code><b>radius-acct</b></code>. For details see
+<A HREF="mpd31.html#extauth">the External authentication chapter</A>.</p>
+<p>Default <code><b>disable</b></code>.</p>
+
+<dt><b><code>pam-auth</code></b><dd><p>Enables authentication using PAM service "mpd".
+This options can only be used with PAP.</p>
+<p>Default <code><b>disable</b></code>.</p>
+
+<dt><b><code>pam-acct</code></b><dd><p>Enable accounting using PAM service "mpd".</p>
+<p>Default <code><b>disable</b></code>.</p>
+
+<dt><b><code>system-auth</code></b><dd><p>Enables authentication against the systems password database.
+This options can only be used with PAP and MS-CHAP, but not 
+with CHAP-MD5. If you intend to use this with MS-CHAP, then 
+the passwords in the <code>master.passwd</code> must be NT-Hashes.
+You can enable this by putting <code>:passwd_format=nth:</code> into 
+your <code>/etc/login.conf</code>, but you need at least FreeBSD 5.2.</p>
+<p>Default <code><b>disable</b></code>.</p>
+
+<dt><b><code>system-acct</code></b><dd><p>Enable accounting via utmp/wtmp.</p>
+<p>Default <code><b>disable</b></code>.</p>
+
+<dt><b><code>opie</code></b><dd><p>Enables authentication using OPIE.
+When using PAP there is nothing more todo. For all other 
+authentication protocols you have to put the username into 
+the <code>mpd.secret</code> file, but the specified password is 
+then interpreted as secret pass phrase. This is needed, because
+Mpd must be aware of the plaintext password when using CHAP.
+The (windows) endusers could generate their actual responses 
+themselfs using Winkey.<br>
+<b>IMPORTANT</b>: Disable the internal authentication when using 
+OPIE and CHAP, because otherwise users are also able to authenticate 
+with their secret pass phrase.</p>
+<p>Default <code><b>disable</b></code>.</p>
+
+<dt><b><code>acct-mandatory</code></b><dd><p>Makes accounting start mandatory. If enabled, on accounting start failure 
+connection will be dropped.</p>
+<p>Default <code><b>enable</b></code>.</p>
+
+</dl>
+</p>
+<H3>4.10.1. <A HREF="mpd30.html#30">RADIUS</A></H3>
+<H3>4.10.2. <A HREF="mpd31.html#31">External authentication</A></H3>
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Authentication, Authorization and Accounting (AAA)</EM><BR>
+<b>Previous:</b> <A HREF="mpd28.html"><EM>Interface layer</EM></A><BR>
+<b>Next:</b> <A HREF="mpd30.html"><EM>RADIUS</EM></A>
+
+
+
+</BODY>
+</HTML>

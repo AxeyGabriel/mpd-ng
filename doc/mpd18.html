@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>General mpd commands</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>General mpd commands</EM><BR>
+<b>Previous:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A><BR>
+<b>Next:</b> <A HREF="mpd19.html"><EM>Mpd Layers</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="18"></A>4.1. General mpd commands<A NAME="gencmd"></A></H2>
+
+<p>This chapter describes general mpd commands that do not
+apply to a specific layer.</p>
+<p>
+<dl>
+
+<dt><b><code>create bundle [ template | static ] <em>name</em> [ <em>template</em> ] </code></b><dd><p>Create new bundle with specified name, optionally based on specified template.
+If 'template' option is specified, bundle will not operate itself,
+but will be used to create new bundles on demand.
+If 'static' option is specified, it will be a permanent bundle which will not
+disappear after operation completes.
+Maximum name length is 10 characters for templates and 15 characters
+for the rest of bundles.</p>
+
+<dt><b><code>create link [ template | static ] <em>name</em> ( <em>type</em> | <em>template</em> ) </code></b><dd><p>Create new link with specified name and type, optionally based on
+specified template.
+If 'template' option is specified, link will not operate itself,
+but will be used to create new links on demand.
+If 'static' option is specified, it will be a permanent link which will not
+disapear after operation complete.
+Maximum name length is 10 characters for templates and 15 characters
+for the rest of links.</p>
+
+<dt><b><code><br>destroy bundle [ <em>name</em> ]<br>
+destroy link [ <em>name</em> ]</code></b><dd><p>Destroy existing link/bundle.
+Note that if link is in use, it may not disapear after command returns,
+it may take some time to properly close it.</p>
+
+<dt><b><code>bundle [ <em>name</em> ] </code></b><dd><p>This command changes the currently active bundle to the bundle named
+<code><em>name</em></code>. The currently active link is also
+changed, to the first link of the bundle. If no
+<code><em>name</em></code> is given, this command lists all
+of the defined bundles and their constituent links.
+The new bundle will be reflected in the prompt.</p>
+
+<dt><b><code>link [ <em>name</em> | <em>[number]</em> ] </code></b><dd><p>This command changes the currenly active link to the link named
+<code><em>name</em></code>. If this link does not belong to
+the currently active bundle, then the currently active bundle
+is changed to the bundle that owns link <code><em>name</em></code>.
+The new link will be reflected in the prompt.
+Link <em>number</em> (RAD_NAS_PORT) can be specified in hex form in 
+square brackets in place of name.</p>
+
+<dt><b><code>repeater [ <em>name</em> ] </code></b><dd><p>This command changes the currenly active repeater to the repeater named
+<code><em>name</em></code>. The currently active phys is also
+changed, to the first phys of the repeater. If no
+<code><em>name</em></code> is given, this command lists all
+of the defined repeaters and their constituent physes.
+The new phys will be reflected in the prompt.</p>
+
+<dt><b><code>iface [ <em>iface</em> ] </code></b><dd><p>This command changes the currenly active bundle to the bundle using
+interface <code><em>iface</em></code>.</p>
+
+<dt><b><code>msession [ <em>msesid</em> ] </code></b><dd><p>This command changes the currenly active bundle to the bundle holding
+session with multilink session ID <code><em>msesid</em></code>.</p>
+
+<dt><b><code>session [ <em>sesid</em> ] </code></b><dd><p>This command changes the currenly active link to the link holding
+session with session ID <code><em>sesid</em></code>.</p>
+
+<dt><b><code>authname [ <em>name</em> ] </code></b><dd><p>This command changes the currenly active link to the link holding
+session with peer auth name <code><em>name</em></code>. If CI argument is present
+login comparasion will be case insensitive.</p>
+
+<dt><b><code>load [ <em>file</em> ] <em>label</em></code></b><dd><p>This command causes mpd to read the entry for <code><em>label</em></code>
+out of <code>mpd.conf</code> or other file if specified and
+execute the corresponding commands. <em>file</em> can be relative
+or absolute file path or http/https/ftp URL. Note, that remote file
+access may be less reliable.</p>
+
+<dt><b><code>show [ <em>item</em> ] </code></b><dd><p>This command displays various status information. The valid
+values for <code><em>item</em></code> are:</p>
+<p>
+<dl>
+
+<dt><b>bundle</b><dd><p>Show status information about the currently active bundle.</p>
+<dt><b>link</b><dd><p>Show status information about the currently active link.</p>
+<dt><b>repeater</b><dd><p>Show status information about the currently active repeater.</p>
+<dt><b>iface</b><dd><p>Show status information about the interface layer associated
+with the currently active bundle.</p>
+<dt><b>routes</b><dd><p>Show the current IP routing table.</p>
+<dt><b>ipcp</b><dd><p>Show status information about the IP control
+protocol associated with the currently active bundle.</p>
+<dt><b>ippool</b><dd><p>Show status information about configures IP pools.</p>
+<dt><b>ccp</b><dd><p>Show status information about the compression control
+protocol associated with the currently active bundle.</p>
+<dt><b>lcp</b><dd><p>Show status information about the link control
+protocol associated with the currently active link.</p>
+<dt><b>nat</b><dd><p>Show information about NAT on the currently active bundle.</p>
+<dt><b>auth</b><dd><p>Show status information about Authentication.</p>
+<dt><b>eap</b><dd><p>Show status information about EAP.</p>
+<dt><b>radius</b><dd><p>Information relating to RADIUS authentication.</p>
+<dt><b>proto</b><dd><p>Show protocol statistics for the currently active bundle and link.</p>
+<dt><b>types</b><dd><p>Show the device types supported by this version of mpd.</p>
+<dt><b>layers</b><dd><p>Show the names of the layers that are valid as arguments to the <code>open</code>
+and <code>close</code> commands.</p>
+<dt><b>l2tp</b><dd><p>Show active L2TP tunnels.</p>
+<dt><b>pptp</b><dd><p>Show active PPTP tunnels.</p>
+<dt><b>events</b><dd><p>Show all pending events (for debugging mpd).</p>
+<dt><b>mem</b><dd><p>Show distribution of dynamically allocated memory (for debugging mpd).</p>
+<dt><b>version</b><dd><p>Show running mpd version and supported features.</p>
+<dt><b>sessions [ <em>param</em> <em>value</em> ]</b><dd><p>Show active sessions conforming specified param/value.
+Available params: iface, ip, bundle, msession, link, session, user, peer.</p>
+<dt><b>customer</b><dd><p>Show active customer details.</p>
+<dt><b>summary</b><dd><p>Show status summary.</p>
+<dt><b>console</b><dd><p>Show console summary.</p>
+<dt><b>web</b><dd><p>Show web server summary.</p>
+<dt><b>user</b><dd><p>Show defined console users.</p>
+<dt><b>netflow</b><dd><p>Show status information about NetFlow.</p>
+
+</dl>
+</p>
+
+<dt><b><code>set ...</code></b><dd>
+<p>This command sets various configuration information. Further
+details are contained in later sections in this chapter.
+The valid completions for <code>set</code> are:</p>
+<p>
+<dl>
+
+<dt><b><code>set global startrule <em>num</em><br>
+set global startpipe <em>num</em><br>
+set global startqueue <em>num</em><br>
+set global starttable <em>num</em></code></b><dd><p>These commands define initial values for autonumeration of ipfw
+rules, pipes, queues and tables. 
+Defaults are 10000, 10000, 10000 and 32 accordingly.</p>
+
+<dt><b><code>set global pptptimeout <em>seconds</em><br>
+set global l2tptimeout <em>seconds</em></code></b><dd><p>Set PPTP/L2TP tunnels inactivity shutdown delay.</p>
+<p>Default is 10 seconds.</p>
+
+<dt><b><code>set global pptplimit <em>num</em><br>
+set global l2tplimit <em>num</em></code></b><dd><p>Limit maximum number of calls per PPTP/L2TP tunnel. When limit
+is reached new tunnel will be created for the next call.
+This option violates PPTP RFC which requires only one tunnel existing
+for the PAC/PNS pair, but it can increase busy tunnels stability.</p>
+<p>Defaults are 100 (10 for L2TP before FreeBSD 6.3-STABLE and 7.0-RELEASE).</p>
+
+<dt><b><code>set global max-children <em>num</em></code></b><dd><p>This option specifies global maximum number of links, created using
+template, that could exist at the same time.</p>
+<p>The default value is 10000.</p>
+
+<dt><b><code>set global qthreshold <em>min</em> <em>max</em></code></b><dd><p>This option specifies global message queue limit thresholds.</p>
+<p>The default values are 64 and 256.</p>
+
+<dt><b><code>set global filter <em>num</em> add <em>fltnum</em> <em>flt</em><br>
+set global filter <em>num</em> clear</code></b><dd><p>These commands define or clear traffic filters to be used by rules submitted
+by 
+<A HREF="mpd30.html#radius">AAA</A> during authentication.</p>
+
+<dt><b><code>set global enable <em>option ...</em><br>
+set global disable <em>option ...</em></code></b><dd><p>These commands configure various global options.</p>
+
+<p>The <code><b>enable</b></code> and <code><b>disable</b></code> commands
+determine whether or not we want the corresponding option.</p>
+<p>The options available are:</p>
+
+<dt><b><code>one-shot</code></b><dd><p>This option forces mpd terminate itself after the last link disappear.
+Link templates are not counted as links.</p>
+<p>The default is disable.</p>
+
+<dt><b><code>tcp-wrapper</code></b><dd><p>With this option mpd uses <code>/etc/hosts.allow</code> everytime a
+connection is made from the client. This is useful if you would
+like to restrict access to mpd. This option affects all TCP
+connections, including PPTP and the TCP device layer.</p>
+<p>The default is disable.</p>
+
+<dt><b><code>agent-cid</code></b><dd><p>Display PPPoE <em>ADSL-Agent-Circuit-Id</em> option in
+<em>show session</em> command.</p>
+<p>The default is disable.</p>
+
+<dt><b><code>session-time</code></b><dd><p>Display session time in seconds in <em>show session</em>
+command.</p>
+<p>The default is disable.</p>
+
+<dt><b><code>set user <em>username</em> <em>password</em>
+[<em>admin</em>|<em>operator</em>|<em>user</em>]</code></b><dd><p>This command configures which users are allowed to connect to the console.
+It may be invoked multiple times with different usernames.</p>
+
+<dt><b><code>set bundle ...</code></b><dd><p>Set bundle layer configuration parameters for the currently active bundle.</p>
+<dt><b><code>set link ...</code></b><dd><p>Set link layer configuration parameters for the currently active link.</p>
+<dt><b><code>set iface ...</code></b><dd><p>Set interface layer configuration parameters for the currently active bundle.</p>
+<dt><b><code>set nat ...</code></b><dd><p>Set NAT configuration parameters for the currently active bundle.</p>
+<dt><b><code>set ipcp ...</code></b><dd><p>Set IP control protocol configuration parameters
+for the currently active bundle.</p>
+<dt><b><code>set ccp ...</code></b><dd><p>Set compression control protocol configuration parameters
+for the currently active bundle.</p>
+<dt><b><code>set auth ...</code></b><dd><p>Configures the authentication subsystem.</p>
+<dt><b><code>set radius ...</code></b><dd><p>Configures RADIUS.</p>
+<dt><b><code>set eap ...</code></b><dd><p>Configures the EAP.</p>
+<dt><b><code>set debug ...<em>level</em></code></b><dd><p>Sets the <code>netgraph(3)</code> debugging level. Default is zero.</p>
+<dt><b><code>set modem ...</code></b><dd><p>Sets device specific configuration parameters
+for the currently active link, which must have type <b>modem</b>.</p>
+<dt><b><code>set ng ...</code></b><dd><p>Sets device specific configuration parameters
+for the currently active link, which must have type <b>netgraph</b>.</p>
+<dt><b><code>set tcp ...</code></b><dd><p>Sets device specific configuration parameters
+for the currently active link, which must have type <b>tcp</b>.</p>
+<dt><b><code>set udp ...</code></b><dd><p>Sets device specific configuration parameters
+for the currently active link, which must have type <b>udp</b>.</p>
+<dt><b><code>set pptp ...</code></b><dd><p>Sets device specific configuration parameters
+for the currently active link, which must have type <b>pptp</b>.</p>
+<dt><b><code>set l2tp ...</code></b><dd><p>Sets device specific configuration parameters
+for the currently active link, which must have type <b>l2tp</b>.</p>
+<dt><b><code>set pppoe ...</code></b><dd><p>Sets device specific configuration parameters
+for the currently active link, which must have type <b>pppoe</b>.</p>
+<dt><b><code>set console ...</code></b><dd><p>Sets console specific configuration parameters</p>
+<dt><b><code>set web ...</code></b><dd><p>Sets web server specific configuration parameters</p>
+</dl>
+</p>
+
+<dt><b><code>unset ...</code></b><dd>
+<p>This command allows to unsets some of configuration information set using
+<code>set</code> command.</p>
+
+<dt><b><code>open [ <em>layer</em> ] </code></b><dd><p>This command causes an OPEN event to be sent to the corresponding
+layer or finite state machine (FSM). The valid layers are:</p>
+<p>
+<dl>
+<dt><b>iface</b><dd><p>Interface layer. Opening this layer configures the interface and
+installs any routes. If dial-on-demand is enabled, nothing else
+happens until there is outgoing traffic. If dial-on-demand is disabled
+there no reason to open this layer manually.</p>
+
+<dt><b>bund</b><dd><p>Bundle layer. This layer represents the multi-link bundle ``virtual
+link'' and is normally opened and closed automatically.</p>
+
+<dt><b>ipcp</b><dd><p>IP control protocol FSM. This is normally opened and closed automatically.</p>
+
+<dt><b>ccp</b><dd><p>Compression control protocol FSM.
+This is normally opened and closed automatically.</p>
+
+<dt><b>link</b><dd><p>Link control protocol FSM. This is default layer for open/close commands.
+Opening of this layer initiates outgoing call by this link.</p>
+
+<dt><b>device</b><dd><p>Device layer.
+This is normally opened and closed automatically.</p>
+
+</dl>
+</p>
+<p>Normally, only the <code>iface</code> and <code>link</code> layers should be explicitly
+opened or closed. This is because the other layers are programmed
+to automatically open and close when appropriate. Note that
+the <b>SIGUSR1</b> and <b>SIGUSR2</b> signals are an alternative
+way to open and close the first link.</p>
+
+<dt><b><code>close [ <em>layer</em> ] </code></b><dd><p>This command causes a CLOSE event to be sent to the corresponding
+layer or finite state machine (FSM).</p>
+
+<dt><b><code>log [ <em>+/-flag ...</em> ] </code></b><dd><p>Mpd supports several different logging flags. Every line logged by mpd is
+tagged with one (or more) of these flags. By turning the flags on or off,
+that particular type of logging is enabled or disabled. This allows you
+to customize logging verbosity.</p>
+<p>Without any arguments, the <code>log</code> command shows the current
+set of logging flags.
+To enable a logging flag, add the <code>+<em>flag</em></code> argument.
+To disable a logging flag, add the <code>-<em>flag</em></code> argument.</p>
+<p>These are the various flags supported by mpd and their corresponding
+categories:</p>
+<p>
+<dl>
+<dt><b>auth*</b><dd><p>Link authentication events</p>
+<dt><b>bund*</b><dd><p>Bundle layer events</p>
+<dt><b>ccp*</b><dd><p>Compression events and negotiation</p>
+<dt><b>chat*</b><dd><p>Modem chat script</p>
+<dt><b>console*</b><dd><p>Log to the console as well as the log file</p>
+<dt><b>echo</b><dd><p>Echo/reply packets for all FSM's</p>
+<dt><b>ecp*</b><dd><p>Encryption events and negotiation</p>
+<dt><b>frame</b><dd><p>Dump all frames transmitted and received</p>
+<dt><b>fsm*</b><dd><p>All FSM events (except echo and resets)</p>
+<dt><b>iface*</b><dd><p>Interface layer events</p>
+<dt><b>ipcp*</b><dd><p>IP control protocol events and negotiation</p>
+<dt><b>ipv6cp*</b><dd><p>IPv6 control protocol events and negotiation</p>
+<dt><b>lcp*</b><dd><p>Link control protocol events and negotiation</p>
+<dt><b>link*</b><dd><p>Link layer events</p>
+<dt><b>phys*</b><dd><p>Device layer events</p>
+<dt><b>radius*</b><dd><p>RADIUS authentication events</p>
+<dt><b>rep*</b><dd><p>Repeater layer events</p>
+</dl>
+</p>
+
+<dt><b><code>help [ <em>command</em> ] </code></b><dd><p>This gives a brief description of the supplied command, or if
+an incomplete command is given, lists the available alternatives.</p>
+
+<dt><b><code>exit</code></b><dd><p>This command exits the console, but does not quit the mpd process.
+This command is useful for disconnecting a telnet connection.</p>
+
+<dt><b><code>shutdown</code></b><dd><p>Close down all connections and quit the mpd process.</p>
+
+</dl>
+</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>General mpd commands</EM><BR>
+<b>Previous:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A><BR>
+<b>Next:</b> <A HREF="mpd19.html"><EM>Mpd Layers</EM></A>
+
+
+
+</BODY>
+</HTML>

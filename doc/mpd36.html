@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Accounting Update</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <A HREF="mpd33.html"><EM>Traffic accounting</EM></A>
+ <b>:</b> <EM>Accounting Update</EM><BR>
+<b>Previous:</b> <A HREF="mpd35.html"><EM>IP Accounting</EM></A><BR>
+<b>Next:</b> <A HREF="mpd37.html"><EM>Typed Accounting Update</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="36"></A>4.12.3. Accounting Update</H2>
+<p>Mpd provides summary traffic statistics in every accounting Update/Stop
+call of radius-acct or ext-acct.</p>
+<p>For radius-acct it provides such attributes:
+<dl>
+<dt><b><code>Acct-Input-Packets</code></b><dd><p>32bit input packets counter,</p>
+<dt><b><code>Acct-Output-Packets</code></b><dd><p>32bit output packets counter,</p>
+<dt><b><code>Acct-Input-Octets</code></b><dd><p>lower 32bit of input bytes counter,</p>
+<dt><b><code>Acct-Output-Octets</code></b><dd><p>lower 32bit of output bytes counter,</p>
+<dt><b><code>Acct-Input-Gigawords</code></b><dd><p>higher 32bit of input bytes counter,</p>
+<dt><b><code>Acct-Output-Gigawords</code></b><dd><p>higher 32bit of output bytes counter.</p>
+</dl>
+</p>
+<p>For ext-acct it provides:
+<dl>
+<dt><b><code>ACCT_INPUT_PACKETS</code></b><dd><p>64bit input packets counter,</p>
+<dt><b><code>ACCT_OUTPUT_PACKETS</code></b><dd><p>64bit output packets counter,</p>
+<dt><b><code>ACCT_INPUT_OCTETS</code></b><dd><p>64bit input bytes counter,</p>
+<dt><b><code>ACCT_OUTPUT_OCTETS</code></b><dd><p>64bit output bytes counter.</p>
+</dl>
+</p>
+<p>NOTE: as Accounting Update is implemented on a link layer it accounts
+traffic via single physical link (without link overhead). So it accounts
+traffic after compression, encryption and multilink were applied to it.</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <A HREF="mpd33.html"><EM>Traffic accounting</EM></A>
+ <b>:</b> <EM>Accounting Update</EM><BR>
+<b>Previous:</b> <A HREF="mpd35.html"><EM>IP Accounting</EM></A><BR>
+<b>Next:</b> <A HREF="mpd37.html"><EM>Typed Accounting Update</EM></A>
+
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Encryption (ECP) layer</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Encryption (ECP) layer</EM><BR>
+<b>Previous:</b> <A HREF="mpd22.html"><EM>Bundle layer</EM></A><BR>
+<b>Next:</b> <A HREF="mpd24.html"><EM>Compression (CCP) layer</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="23"></A>4.5. Encryption (ECP) layer<A NAME="encryption"></A></H2>
+<p>This chapter describes commands that configure the Encryption Control
+Protocol (ECP) layer. All of these commands apply to the currently
+active bundle.</p>
+<p>To use ECP you should enable encryption at the bundle level.
+To allow encryption to be negotiated you should enable here some of 
+encryption protocols.</p>
+<p><b>Note:</b> In PPP, encryption should be handled by the ECP rather than CCP.  
+However, Microsoft combined both compression and encryption 
+into their ``compression'' algorithm (MPPC), which is confusing.</p>
+<p>
+<dl>
+
+<dt><b><code>set ecp key <em>string</em> </code></b><dd>
+<p>Sets the encryption key.</p>
+
+<dt><b><code>set ecp accept <em>option ...</em> </code></b><dd>
+<dt><b><code>set ecp deny <em>option ...</em> </code></b><dd>
+<dt><b><code>set ecp enable <em>option ...</em> </code></b><dd>
+<dt><b><code>set ecp disable <em>option ...</em> </code></b><dd>
+<dt><b><code>set ecp yes <em>option ...</em> </code></b><dd>
+<dt><b><code>set ecp no <em>option ...</em> </code></b><dd>
+<p>These commands configure various ECP options. Each direction of
+traffic (transmit and receive) is independent from the other.
+All options default to <code><b>disable</b></code> and <code><b>deny</b></code>.</p>
+<p>The <code><b>enable</b></code> and <code><b>disable</b></code> commands determine
+whether we desire the corresponding option on received data.
+The <code><b>accept</b></code> and <code><b>deny</b></code> commands determine
+whether we will allow the peer to request the corresponding option
+(which we must enable on our transmitted data).</p>
+
+<p>The <b><code>yes</code></b> command is the same as
+<code><b>enable</b></code> and <code><b>accept</b></code>.
+The <b><code>no</code></b> command is the same as
+<code><b>disable</b></code> and <code><b>deny</b></code>.</p>
+
+</dl>
+</p>
+
+<p>The options available at the ECP layer are:</p>
+<p>
+<dl>
+
+<dt><b><code>dese-bis</code></b><dd><p>This option enables DESE-bis (rfc 2419) encryption.
+This algorithm implemented in user-level, so require much CPU power
+on fast (&gt;10Mbit/s) links.</p>
+<p>The default is disable.</p>
+
+<dt><b><code>dese-old</code></b><dd><p>This option enables DESE (rfc 1969) encryption.
+This algorithm implemented in user-level, so require much CPU power
+on fast (&gt;10Mbit/s) links.</p>
+<p><b>Note:</b> DESE protocol is deprecated. Because of data padding 
+to the next 8 octets boundary, required by block nature of DES encryption, 
+dese-old option can have interoperability issues with other protocols 
+which work over it. As example, it is incompatible with Predictor-1 and 
+Deflate compressions.</p>
+<p>The default is disable.</p>
+
+</dl>
+</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Encryption (ECP) layer</EM><BR>
+<b>Previous:</b> <A HREF="mpd22.html"><EM>Bundle layer</EM></A><BR>
+<b>Next:</b> <A HREF="mpd24.html"><EM>Compression (CCP) layer</EM></A>
+
+
+
+</BODY>
+</HTML>

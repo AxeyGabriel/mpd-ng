@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Modem type commands</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd42.html"><EM>Device Types</EM></A>
+ <b>:</b> <EM>Modem type commands</EM><BR>
+<b>Previous:</b> <A HREF="mpd42.html"><EM>Device Types</EM></A><BR>
+<b>Next:</b> <A HREF="mpd44.html"><EM>Netgraph device type commands</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="43"></A>5.1. Modem type commands<A NAME="modem"></A></H2>
+<p>This chapter describes commands that are specific to modem type links.
+These commands apply to the currently active link, and are only
+valid if the currently active link has type <b>modem</b>.</p>
+<p>
+<dl>
+
+<dt><b><code>set modem device <em>devname</em></code></b><dd><p>Modem links operate over serial ports. This command tells mpd
+which serial port to use for this link, and is required.
+The <code><em>devname</em></code> should be the pathname of a serial
+device, e.g., <code>/dev/cuau0</code>.</p>
+
+<dt><b><code>set modem var <em>$variable</em> <em>string</em></code></b><dd><p>Pre-sets the chat script variable <code><em>$variable</em></code> to contain
+the string <code><em>string</em></code>. See 
+<A HREF="mpd50.html#chat">the chapter on chat scripting</A> for more information
+on chat variables.</p>
+
+<dt><b><code>set modem speed <em>speed</em></code></b><dd><p>This commands sets the initial serial port speed when opening
+the serial device, e.g., 9600, 57600, 115200. Note that you can
+always change the serial port speed later from within the chat script.</p>
+
+<dt><b><code>set modem script <em>connect-script</em></code></b><dd><p>This command tells mpd which chat script to run in order to initiate
+a PPP connection for this link. The <code><em>connect-script</em></code>
+should correspond to a label in <code>mpd.script</code>. Mpd will jump
+to this label after opening the serial port device. If
+<code><em>connect-script</em></code> is not set, then the chat phase
+of the connection is skipped (e.g., if you have a direct null modem
+connection).</p>
+
+<dt><b><code>set modem idle-script <em>idle-script</em></code></b><dd><p>This command tells mpd what to do with the serial port when the link is
+not connected. If no <code><em>idle-script</em></code> is set, then mpd will
+leave the serial port closed when not connected. Otherwise, when the
+link is disconnected mpd runs the <code><em>idle-script</em></code> chat
+script. If this script returns <code>failure</code>, then mpd
+restarts the script.</p>
+<p>Otherwise, (i.e., if it returns <code>success</code>) mpd examines the
+contents of the <code>$IdleResult</code> chat variable to decide what to do
+next. If it equals
+<code>answer</code> then mpd will assume that an incoming call has been
+answered and immediately enter PPP negotiation. If it equals
+<code>ringback</code> then mpd will close the serial port, reopen it,
+and initiate an outgoing connection normally (i.e., using
+<code><em>connect-script</em></code>). </p>
+<p>If <code>$IdleResult</code> contains anything else or is not set, then
+mpd acts as if <code>failure</code> had occurred and simply restarts
+the script.</p>
+
+<dt><b><code>set modem watch <em>+/-signal ...</em></code></b><dd><p>Mpd normally tracks the carrier detect signal on the serial port
+and drops the connection when this signal is lost. You can disable
+this behavior with <code><b>set modem watch -cd</b></code>. Also,
+mpd can do the same thing with the DSR signal, though the default
+is to ignore DSR. To enable watching of the DSR signal, use
+<code><b>set modem watch +dsr</b></code>.</p>
+
+</dl>
+</p>
+
+
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd42.html"><EM>Device Types</EM></A>
+ <b>:</b> <EM>Modem type commands</EM><BR>
+<b>Previous:</b> <A HREF="mpd42.html"><EM>Device Types</EM></A><BR>
+<b>Next:</b> <A HREF="mpd44.html"><EM>Netgraph device type commands</EM></A>
+
+
+
+</BODY>
+</HTML>

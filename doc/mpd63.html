@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Troubleshooting</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd62.html"><EM>Troubleshooting</EM></A>
+ <b>:</b> <EM>Troubleshooting</EM><BR>
+<b>Previous:</b> <A HREF="mpd62.html"><EM>Troubleshooting</EM></A><BR>
+<b>Next:</b> <A HREF="mpd64.html"><EM>Internals</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="63"></A>7.1. Troubleshooting<A NAME="trouble"></A></H2>
+<p>Some tips for troubleshooting.</p>
+
+<p>For further help, ask to the <code>freebsd-net@freebsd.org</code>
+mailing list or sourceforge.net mpd project forum.</p>
+<p>
+<dl>
+
+<dt><b><b>It does not work and I do not understand why.</b></b><dd><p>Mpd has extensive logging system supporting syslog. To direct logs
+into a file add lines
+<pre>
+!mpd
+*.*                                             /var/log/mpd.log
+</pre>
+
+into your /etc/syslog.conf file, create /var/log/mpd.log file and send 
+SIGHUP to syslogd to reread config.</p>
+<p>To enable all possible logging you can use 'log +all' command.</p>
+
+<dt><b><b>Packets won't flow.</b></b><dd><p>Make sure you have set <code><b>gateway_enable="YES"</b></code>
+in <code>/etc/rc.conf</code>, otherwise your FreeBSD box will not
+route packets.</p>
+<p>Also, check your firewall settings. Mpd will create new interfaces
+which may need to be incorporated into your firewall rules.
+If you're doing PPTP, you need to allow TCP port 1723 and IP protocol
+47 (GRE).</p>
+
+<dt><b><b>It does not work and there are strange netgraph-related errors in the log.</b></b><dd><p>Make sure you have all the required netgraph KLD's loaded.
+You can check them by doing <code> kldstat -v | grep ng_ </code>.</p>
+<p>Usually these are loaded on demand. If not, you can load them
+manually using <code>kldload(8)</code>.</p>
+<p>The following node types are or may be needed:</p>
+<p>
+<ul>
+<li><code>ng_async</code></li>
+<li><code>ng_bpf</code></li>
+<li><code>ng_car</code></li>
+<li><code>ng_deflate</code></li>
+<li><code>ng_ether</code></li>
+<li><code>ng_iface</code></li>
+<li><code>ng_ksocket</code></li>
+<li><code>ng_l2tp</code></li>
+<li><code>ng_mppc</code></li>
+<li><code>ng_ppp</code></li>
+<li><code>ng_pppoe</code></li>
+<li><code>ng_pptpgre</code></li>
+<li><code>ng_nat</code></li>
+<li><code>ng_netflow</code></li>
+<li><code>ng_pred1</code></li>
+<li><code>ng_socket</code></li>
+<li><code>ng_tcpmss</code></li>
+<li><code>ng_tee</code></li>
+<li><code>ng_tty</code></li>
+<li><code>ng_vjc</code></li>
+</ul>
+</p>
+
+<dt><b><b>My configuration does not seem to be working as expected.</b></b><dd><p>Make sure your <code>mpd.conf</code> file formatted properly.
+Labels must be left-justified, while other lines must not.</p>
+
+<dt><b><b>I am getting no valid response from the RADIUS server.</b></b><dd><p>Double-check the shared secret in the RADIUS servers config and the
+one specified in <code>mpd.conf</code> or <code>radius.conf</code>.
+Check the ports of the RADIUS server: they should be 1812 (authentication)
+and 1813 (accounting), wich are also the default ports of mpd. In
+the past unofficial port numbers (1645 and 1646) were used for RADIUS,
+but these are deprecated.</p>
+
+<dt><b><b>I am getting ``Operation not permitted'' errors trying to run mpd.</b></b><dd><p>This is often caused by a combination of (a) using netgraph in KLD module
+form instead of statically compiling the various modules into the kernel
+via kernel <code>config(8)</code> options, and (b) increasing your 
+kernel security level (see the <code>init(8)</code> man page), which prevents
+KLD modules from being loaded. Change one of these things to fix the problem.</p>
+
+<dt><b><b>I have configured a link for dial-in and sometimes after disconnecting
+mpd gets into some kind of infinite loop.</b></b><dd><p>This is because mpd is trying to ``redial'' which of course is not
+appropriate for dial-in links. Use <code>set link max-redial -1</code> and 
+<code>set bundle yes noretry</code> to disable the redial function.</p>
+
+<dt><b><b>I use mpd as PPTP server for Windows XP clients. While accessing bigger
+websites or listing larger ftp directories the connection
+seems to hang.</b></b><dd><p>Windows XP insists on a very low MTU (usually 1396 Bytes). This needs
+fragmentation if bigger packets should be transmitted over the link.
+Fragmentation is negotiated at ICMP level. If there is a bad router
+somewhere in the network dropping such packets then the connection
+hangs.
+The first thing what you can try is reducing mpd's MTU value, by
+setting: <code>set link mtu 1300</code> and <code>set bundle disable multilink</code>,
+this should help in most cases.
+For TCP connections it is possible enabling the TCP-MSS-Fix:
+<code>set iface enable tcpmssfix</code>.</p>
+
+<dt><b><b>Problems with MPPE stateless when connecting to Cisco devices.</b></b><dd><p>Upgrade the IOS of your device, see:
+<code>CSCdu30944  MPPE rejects stateless        Fixed in 12.3(11.4)</code></p>
+
+</dl>
+</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd62.html"><EM>Troubleshooting</EM></A>
+ <b>:</b> <EM>Troubleshooting</EM><BR>
+<b>Previous:</b> <A HREF="mpd62.html"><EM>Troubleshooting</EM></A><BR>
+<b>Next:</b> <A HREF="mpd64.html"><EM>Internals</EM></A>
+
+
+
+</BODY>
+</HTML>

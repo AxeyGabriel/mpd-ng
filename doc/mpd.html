@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Mpd 5.9 User Manual</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<H1>Mpd 5.9 User Manual</H1>
+ <h2>Archie Cobbs, Michael Bretterklieber, Alexander Motin
+	<br><br>
+	<code><A href="mailto:mpd-users@lists.sourceforge.net">&lt;mpd-users@lists.sourceforge.net&gt;</A></code>
+	</h2>2020-09-06
+<p><hr><em>This manual covers the use of <b>mpd</b> version <b>5.9</b>,
+a multi-link PPP daemon for FreeBSD based on <code>netgraph(4)</code>.
+You must be running FreeBSD version 5.x or higher to use it, and
+it is advised to have the latest system version to get access to
+all mpd features.</em><hr></p>
+<H3>1. <A HREF="mpd1.html#1">Introduction</A></H3>
+<DL>
+<DD>1.1. <A HREF="mpd2.html#2">Overview</A></DD>
+<DD>1.2. <A HREF="mpd3.html#3">Organization of this manual</A></DD>
+<DD>1.3. <A HREF="mpd4.html#4">Change history</A></DD>
+</DL>
+<H3>2. <A HREF="mpd5.html#5">Installation</A></H3>
+<DL>
+<DD>2.1. <A HREF="mpd6.html#6">Getting mpd</A></DD>
+<DD>2.2. <A HREF="mpd7.html#7">Installing mpd</A></DD>
+<DD>2.3. <A HREF="mpd8.html#8">Building mpd</A></DD>
+</DL>
+<H3>3. <A HREF="mpd9.html#9">Running Mpd</A></H3>
+<DL>
+<DD>3.1. <A HREF="mpd10.html#10">Invoking mpd</A></DD>
+<DD>3.2. <A HREF="mpd11.html#11">Configuration file format</A></DD>
+<DD>3.3. <A HREF="mpd16.html#16">Mpd command line interface</A></DD>
+</DL>
+<H3>4. <A HREF="mpd17.html#17">Configuring Mpd</A></H3>
+<DL>
+<DD>4.1. <A HREF="mpd18.html#18">General mpd commands</A></DD>
+<DD>4.2. <A HREF="mpd19.html#19">Mpd Layers</A></DD>
+<DD>4.3. <A HREF="mpd20.html#20">Link layer</A></DD>
+<DD>4.4. <A HREF="mpd22.html#22">Bundle layer</A></DD>
+<DD>4.5. <A HREF="mpd23.html#23">Encryption (ECP) layer</A></DD>
+<DD>4.6. <A HREF="mpd24.html#24">Compression (CCP) layer</A></DD>
+<DD>4.7. <A HREF="mpd26.html#26">IPCP layer</A></DD>
+<DD>4.8. <A HREF="mpd27.html#27">IPv6CP layer</A></DD>
+<DD>4.9. <A HREF="mpd28.html#28">Interface layer</A></DD>
+<DD>4.10. <A HREF="mpd29.html#29">Authentication, Authorization and Accounting (AAA)</A></DD>
+<DD>4.11. <A HREF="mpd32.html#32">Dynamic Authorization</A></DD>
+<DD>4.12. <A HREF="mpd33.html#33">Traffic accounting</A></DD>
+<DD>4.13. <A HREF="mpd38.html#38">IP address pools</A></DD>
+<DD>4.14. <A HREF="mpd39.html#39">Network Address Translation (NAT)</A></DD>
+<DD>4.15. <A HREF="mpd40.html#40">Control console</A></DD>
+<DD>4.16. <A HREF="mpd41.html#41">Web server</A></DD>
+</DL>
+<H3>5. <A HREF="mpd42.html#42">Device Types</A></H3>
+<DL>
+<DD>5.1. <A HREF="mpd43.html#43">Modem type commands</A></DD>
+<DD>5.2. <A HREF="mpd44.html#44">Netgraph device type commands</A></DD>
+<DD>5.3. <A HREF="mpd45.html#45">TCP device type commands</A></DD>
+<DD>5.4. <A HREF="mpd46.html#46">UDP device type commands</A></DD>
+<DD>5.5. <A HREF="mpd47.html#47">PPTP device type commands</A></DD>
+<DD>5.6. <A HREF="mpd48.html#48">L2TP device type commands</A></DD>
+<DD>5.7. <A HREF="mpd49.html#49">PPPoE device type commands</A></DD>
+</DL>
+<H3>6. <A HREF="mpd50.html#50">Chat Scripting</A></H3>
+<DL>
+<DD>6.1. <A HREF="mpd51.html#51">Script file format and execution</A></DD>
+<DD>6.2. <A HREF="mpd52.html#52">Events</A></DD>
+<DD>6.3. <A HREF="mpd55.html#55">Sets</A></DD>
+<DD>6.4. <A HREF="mpd57.html#57">Variables</A></DD>
+<DD>6.5. <A HREF="mpd59.html#59">Script commands</A></DD>
+<DD>6.6. <A HREF="mpd60.html#60">Errors</A></DD>
+<DD>6.7. <A HREF="mpd61.html#61">The included <code>mpd.script</code></A></DD>
+</DL>
+<H3>7. <A HREF="mpd62.html#62">Troubleshooting</A></H3>
+<DL>
+<DD>7.1. <A HREF="mpd63.html#63">Troubleshooting</A></DD>
+</DL>
+<H3>8. <A HREF="mpd64.html#64">Internals</A></H3>
+<DL>
+<DD>8.1. <A HREF="mpd65.html#65">ToDo</A></DD>
+<DD>8.2. <A HREF="mpd66.html#66">Authentication</A></DD>
+<DD>8.3. <A HREF="mpd67.html#67">Hints for developers</A></DD>
+</DL>
+<H3>9. <A HREF="mpd68.html#68">References</A></H3>
+<DL>
+<DD>9.1. <A HREF="mpd69.html#69">References</A></DD>
+<DD>9.2. <A HREF="mpd70.html#70">Credits</A></DD>
+</DL>
+ 
+
+</BODY>
+</HTML>

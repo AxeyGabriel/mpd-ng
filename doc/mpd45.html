@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>TCP device type commands</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd42.html"><EM>Device Types</EM></A>
+ <b>:</b> <EM>TCP device type commands</EM><BR>
+<b>Previous:</b> <A HREF="mpd44.html"><EM>Netgraph device type commands</EM></A><BR>
+<b>Next:</b> <A HREF="mpd46.html"><EM>UDP device type commands</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="45"></A>5.3. TCP device type commands<A NAME="tcp"></A></H2>
+<p>This chapter describes commands that are specific to TCP type links.
+These commands apply to the currently active link, and are only
+valid if the currently active link has type <b>tcp</b>.</p>
+<p>Due to limitations of ng_ksocket module this device type have two issues:
+<ul>
+<li>when there are no free incoming link, new connection will anyway 
+be acceped and then dropped instead of not accepting it,</li>
+<li>tcp connection status is not monitored, so you should use 
+'set link keep-alive' to detect broken links.</li>
+</ul>
+</p>
+<p>
+<dl>
+
+<dt><b><code>set tcp self <em>ipaddr</em> [ <em>port</em> ]</code></b><dd><p>Sets the local IP address and port for the TCP connection.
+Port field is required for accepting incoming connections.</p>
+
+<dt><b><code>set tcp peer <em>ipaddr</em> [ <em>port</em> ]</code></b><dd><p>Sets the peer IP address and port for the TCP connection.
+Address and port fields are required for outgoing connections.
+For incoming connections it is not required, but can limit who can connect to us.</p>
+
+</dl>
+</p>
+
+<p>The following options are supported:</p>
+<p>
+<dl>
+
+<dt><b><code>resolve-once</code></b><dd><p>Enables resolving peer address only once, on startup, or on manual
+typing in CLI.</p>
+<p>The default is enable.</p>
+
+</dl>
+
+</p>
+
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd42.html"><EM>Device Types</EM></A>
+ <b>:</b> <EM>TCP device type commands</EM><BR>
+<b>Previous:</b> <A HREF="mpd44.html"><EM>Netgraph device type commands</EM></A><BR>
+<b>Next:</b> <A HREF="mpd46.html"><EM>UDP device type commands</EM></A>
+
+
+
+</BODY>
+</HTML>

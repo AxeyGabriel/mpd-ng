@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>mpd.conf</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd9.html"><EM>Running Mpd</EM></A>
+ <b>:</b> <A HREF="mpd11.html"><EM>Configuration file format</EM></A>
+ <b>:</b> <EM><code>mpd.conf</code></EM><BR>
+<b>Previous:</b> <A HREF="mpd12.html"><EM>General properties</EM></A><BR>
+<b>Next:</b> <A HREF="mpd14.html"><EM><code>mpd.secret</code></EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="13"></A>3.2.2. <code>mpd.conf</code></H2>
+<p>An <em>entry</em> consists of a <em>label</em> followed by a sequence of
+mpd commands.
+A label begins at the first column and ends with a colon
+character. Commands are indented with a tab character
+and follow the label on the next and subsequent lines.</p>
+<p>Here is an example <code>mpd.conf</code> that contains a single
+configuration <code>client</code> that defines a single bundle template <code>B1</code>
+and one link <code>L1</code>:
+<blockquote><code>
+<pre>
+#
+# mpd.conf configuration file
+#
+
+client:
+	create bundle template B1
+
+	create link static L1 modem
+	set modem device /dev/cuau0
+	set modem speed 115200
+	set modem script DialPeer
+	set modem idle-script AnswerCall
+	set modem var $DialPrefix "DT"
+	set modem var $Telephone "1234567"
+	set link no pap chap eap
+	set link accept pap
+	set auth authname "MyLogin"
+	set auth password "MyPassword"
+	set link max-redial 0
+	set link action bundle B1
+	open
+</pre>
+</code></blockquote>
+</p>
+<p>Commands are independent and executed one by one as if they were
+entered using console. Most command operation depends on the active
+context, which includes currently active link, bundle and repeater.
+Information about active context is shown at the console command prompt.
+Some commands, like <code>link</code>, <code>bundle</code>, <code>repeater</code>
+and <code>create</code> can change this context.</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd9.html"><EM>Running Mpd</EM></A>
+ <b>:</b> <A HREF="mpd11.html"><EM>Configuration file format</EM></A>
+ <b>:</b> <EM><code>mpd.conf</code></EM><BR>
+<b>Previous:</b> <A HREF="mpd12.html"><EM>General properties</EM></A><BR>
+<b>Next:</b> <A HREF="mpd14.html"><EM><code>mpd.secret</code></EM></A>
+
+
+
+</BODY>
+</HTML>

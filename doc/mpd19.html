@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Mpd Layers</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Mpd Layers</EM><BR>
+<b>Previous:</b> <A HREF="mpd18.html"><EM>General mpd commands</EM></A><BR>
+<b>Next:</b> <A HREF="mpd20.html"><EM>Link layer</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="19"></A>4.2. Mpd Layers<A NAME="layers"></A></H2>
+<p>Mpd consists of several <b>layers</b>, corresponding
+to the layered nature of the PPP protocol. There are two
+types of layers hierarchy connected with two different 
+operation modes as "ppp terminator" and "ppp repeater".
+Operation mode is getting chosen dynamically depending on link
+configuration and user auth name (see 'set link action ...' command).</p>
+<p>In "ppp terminator" mode such hierarchy used:
+<b>
+<A HREF="mpd28.html#interface">Interface</A></b> -&gt;
+<b>
+<A HREF="mpd26.html#ipcp">NCPs</A></b> -&gt;
+<b>
+<A HREF="mpd24.html#compression">Compression</A></b> -&gt;
+<b>
+<A HREF="mpd23.html#encryption">Encryption</A></b> -&gt;
+<b>
+<A HREF="mpd22.html#bundle">Bundle</A></b> -&gt; 
+<b>
+<A HREF="mpd20.html#links">Links</A></b></p>
+<p>In "ppp repeater" mode different hierarchy used:
+<b>
+<A HREF="mpd20.html#links">Link1</A></b> -&gt;
+<b>Repeater</b> -&gt; 
+<b>
+<A HREF="mpd20.html#links">Link2</A></b></p>
+<p>A <b>
+<A HREF="mpd20.html#links">link</A></b> is a single point-to-point
+connection between the local machine and a remote peer machine, 
+implemented by some kind of physical device, 
+such as a serial modem connection or a virtual PPTP connection.</p>
+<p>Link parameters include whether authentication is enabled in
+either direction, the authentication type (PAP or CHAP)
+used, keep-alive packets, multilink negotiation options
+and various other link specific parameters.</p>
+<p>Lower half of the link layer is the physical devices layer.
+Configuration of device type specific parameters happens at this layer. 
+Each device has a specific <em>type</em>
+corresponding to one of the supported device types in mpd.
+The type dictates how the device dependent part
+is configured and what it's capabilities are.</p>
+<p>A <b>
+<A HREF="mpd22.html#bundle">bundle</A></b> is a collection 
+of one or more links, all connecting
+to the same remote peer, that together form a single
+multi-link PPP connection whose effective bandwidth is
+the sum of the bandwidths of the individual links.</p>
+<p>The bundle layer in effect lies just above the link layer.
+The bundle layer handles the task of making multiple 
+physical links appear as a single virtual link.</p>
+<p>At the bundle layer you configure multi-link
+PPP settings and the link management policy. The link management
+policy determines whether mpd tries to keep all the links
+connected all the time, or whether it adds and subtracts
+links depending on demand, and if so, according to what parameters.</p>
+<p>With each bundle is a corresponding 
+<b>
+<A HREF="mpd28.html#interface">interface</A></b> layer,
+which corresponds directly to a system network interface
+accessible via <code>ifconfig(8)</code>, such as <code>ng0</code>.
+The interface layer handles configuring the interface,
+bringing it up or down as appropriate, assigning
+IP addresses, setting up static routes and configuring proxy-ARP.
+The interface layer is also responsible for implementing
+Dial-on-Demand and idle timeout functionality.</p>
+<p>Each bundle has several corresponding NCP layers as
+<b>
+<A HREF="mpd26.html#ipcp">IP Control Protocol (IPCP)</A></b> and
+<b>
+<A HREF="mpd27.html#ipv6cp">IPv6 Control Protocol (IPv6CP)</A></b>,
+which manages the protocol specific configuration of the interface.
+This layers handle the negotiation of local and remote addresses
+and TCP header compression, as well as other optional 
+IP related information such as DNS servers and NBNS servers.</p>
+<p>Each bundle also has corresponding
+<b>
+<A HREF="mpd24.html#compression">compression (CCP)</A></b> and
+<b>
+<A HREF="mpd23.html#encryption">encryption (ECP)</A></b> layers, which
+allow you to enable and configure compression and encryption
+for data sent and received over the bundle.</p>
+<p>A <b>repeater</b> is a collection of two physical devices 
+(links). It is getting created when there is need to forward 
+connection coming from one physical device to another without
+modification. This technology is also known as LAC 
+(L2TP Access Concentrator) and PAC (PPTP Access Concentrator).</p>
+<p>While the combination of all the various layers presents
+a large number of configuration options, mpd tries to
+have reasonable defaults for everything.</p>
+
+
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Mpd Layers</EM><BR>
+<b>Previous:</b> <A HREF="mpd18.html"><EM>General mpd commands</EM></A><BR>
+<b>Next:</b> <A HREF="mpd20.html"><EM>Link layer</EM></A>
+
+
+
+</BODY>
+</HTML>

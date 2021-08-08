@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Typed Accounting Update</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <A HREF="mpd33.html"><EM>Traffic accounting</EM></A>
+ <b>:</b> <EM>Typed Accounting Update</EM><BR>
+<b>Previous:</b> <A HREF="mpd36.html"><EM>Accounting Update</EM></A><BR>
+<b>Next:</b> <A HREF="mpd38.html"><EM>IP address pools</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="37"></A>4.12.4. Typed Accounting Update</H2>
+<p>In addition to standard Accounting Update stats, mpd is able to provide
+accounting information for any specified traffic types. Traffic types
+may be defined using optional third component of mpd-limit's left part.</p>
+<p>In accounting requests mpd can provide such attributes:
+for radius-acct:
+<dl>
+<dt><b><code>mpd-input-packets</code></b><dd><p>traffic type : 64bit input packets counter,</p>
+<dt><b><code>mpd-output-packets</code></b><dd><p>traffic type : 64bit output packets counter,</p>
+<dt><b><code>mpd-input-octets</code></b><dd><p>traffic type : 64bit of input bytes counter,</p>
+<dt><b><code>mpd-output-octets</code></b><dd><p>traffic type : 64bit of output bytes counter,</p>
+</dl>
+
+for ext-acct:
+<dl>
+<dt><b><code>MPD_INPUT_PACKETS</code></b><dd><p>traffic type : 64bit input packets counter,</p>
+<dt><b><code>MPD_OUTPUT_PACKETS</code></b><dd><p>traffic type : 64bit output packets counter,</p>
+<dt><b><code>MPD_INPUT_OCTETS</code></b><dd><p>traffic type : 64bit input bytes counter,</p>
+<dt><b><code>MPD_OUTPUT_OCTETS</code></b><dd><p>traffic type : 64bit output bytes counter.</p>
+</dl>
+</p>
+<p>NOTE: as Typed Accounting Update is implemented on interface layer instead
+of link as usual Accounting Update, same data will be reported for every
+link of multilink connection. Some special care should be taken by AAA
+to not account same traffic twice in multilink case.</p>
+<p>For example, specification:
+<pre>
+mpd-filter += "1#1=match dst net 10.0.0.0/8",
+mpd-limit += "in#1#Local=flt1 pass",
+mpd-limit += "in#2#Biz=all shape 64000 4000",
+</pre>
+
+, or for ext-auth:
+<pre>
+MPD_FILTER:1#1=match dst net 10.0.0.0/8
+MPD_LIMIT:in#1#Local=flt1 pass
+MPD_LIMIT:in#2#Biz=all shape 64000 4000
+</pre>
+
+will instruct mpd to account traffic of two types: "Local" and "Biz".
+Traffic going from client to the 10.0.0.0/8 network will be accounted
+as "Local", all other incoming traffic after shaping will be accounted as "Biz".
+In accounting request mpd will provide to RADIUS something like:
+<pre>
+mpd-input-packets = Local:213213
+mpd-input-octets = Local:32132132
+mpd-input-packets = Biz:21321
+mpd-input-octets = Biz:3213213
+</pre>
+
+, and for ext-acct:
+<pre>
+ACCT_INPUT_PACKETS:Local:213213
+ACCT_INPUT_OCTETS:Local:32132132
+ACCT_INPUT_PACKETS:Biz:21321
+ACCT_INPUT_OCTETS:Biz:3213213
+</pre>
+</p>
+<p>To simplify AAA integration mpd able to return specified traffic types
+using standard RADIUS attributes. Required traffic type can be specified
+using mpd-input-acct/mpd-output-acct attributes.</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <A HREF="mpd33.html"><EM>Traffic accounting</EM></A>
+ <b>:</b> <EM>Typed Accounting Update</EM><BR>
+<b>Previous:</b> <A HREF="mpd36.html"><EM>Accounting Update</EM></A><BR>
+<b>Next:</b> <A HREF="mpd38.html"><EM>IP address pools</EM></A>
+
+
+
+</BODY>
+</HTML>

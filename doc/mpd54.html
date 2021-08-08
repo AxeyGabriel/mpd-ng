@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Match events</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A>
+ <b>:</b> <A HREF="mpd52.html"><EM>Events</EM></A>
+ <b>:</b> <EM>Match events</EM><BR>
+<b>Previous:</b> <A HREF="mpd53.html"><EM>Timer events</EM></A><BR>
+<b>Next:</b> <A HREF="mpd55.html"><EM>Sets</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="54"></A>6.2.2. Match events</H2>
+<p>Match events are created with the <code>match</code> and <code>regex</code>
+commands.  A match event occurs when the pattern specified in
+the <code>match</code> or <code>regex</code> command has been matched in
+the input. Characters are only input during the execution of
+<code>wait</code> commands. In order for a pattern to match, the
+first matching character of the pattern must be read
+<em>after</em> the event is created (i.e., during a subsequent
+<code>wait</code> command).</p>
+<p>When the pattern is matched, chat script execution continues
+starting at the target label. When multiple patterns match on
+the same input character, mpd chooses the first one defined to
+be the one that matches.</p>
+<p>The pattern is either plain text or an extended regular
+expression (see below).</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A>
+ <b>:</b> <A HREF="mpd52.html"><EM>Events</EM></A>
+ <b>:</b> <EM>Match events</EM><BR>
+<b>Previous:</b> <A HREF="mpd53.html"><EM>Timer events</EM></A><BR>
+<b>Next:</b> <A HREF="mpd55.html"><EM>Sets</EM></A>
+
+
+
+</BODY>
+</HTML>

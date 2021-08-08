@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Overview</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd1.html"><EM>Introduction</EM></A>
+ <b>:</b> <EM>Overview</EM><BR>
+<b>Previous:</b> <A HREF="mpd1.html"><EM>Introduction</EM></A><BR>
+<b>Next:</b> <A HREF="mpd3.html"><EM>Organization of this manual</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="2"></A>1.1. Overview<A NAME="overview"></A></H2>
+<p>Mpd is a netgraph(4) based implementation of the multi-link
+PPP protocol for FreeBSD. It is designed to be both fast
+and flexible as it handles configuration and negotiation in
+user land, while routing all data packets strictly in the
+kernel.      </p>
+<p>Mpd has unified support for many link types:
+<ul>
+<li><b>modem</b> to connect using different asynchronous
+serial connections, including modems, ISDN terminal adapters,
+and null-modem.
+Mpd includes event-driven scripting language for modem
+identification, setup, manual server login, etc.</li>
+<li><b>pptp</b> to connect over the Internet using
+the Point-to-Point Tunneling Protocol (PPTP).
+This protocol is supported by the most OSes and hardware vendors.</li>
+<li><b>l2tp</b> to connect over the Internet using
+the Layer Two Tunneling Protocol (L2TP).
+L2TP is a PPTP successor supported with modern clients and servers.</li>
+<li><b>pppoe</b> to connect over an Ethernet port
+using the PPP-over-Ethernet (PPPoE) protocol.
+This protocol is often used by DSL providers.</li>
+<li><b>tcp</b> to tunnel PPP session over a TCP connection.
+Frames are encoded in the same was as asychronous serial connections.</li>
+<li><b>udp</b> to tunnel PPP session over a UDP connection.
+Each frame is encapsulated in a UDP datagram packet.</li>
+<li><b>ng</b> to connect using different devices supported by netgraph.
+Netgraph is highly modular kernel networking system,
+supporting synchronous serial connections, Cisco HDLC, Frame Relay, and other protocols.</li>
+</ul>
+</p>
+<p>It supports numerous PPP sub-protocols and extensions, such as:
+<ul>
+<li>Multi-link PPP</li>
+<li>PAP, CHAP, MS-CHAP and EAP authentication </li>
+<li>traffic compression (MPPC, Deflate, Predictor-1)</li>
+<li>traffic encryption (MPPE, DESE, DESE-bis)</li>
+<li>IPCP and IPV6CP parameter negotiation</li>
+</ul>
+</p>
+<p>Depending on configured rules and connection parameters mpd can operate
+as usual PPP client/server or forward connection unmodified
+to other host using any supported link type providing LAC/PAC/TSA
+functionality for building distributed access networks.</p>
+<p>Mpd also includes many additional features: 
+<ul>
+<li>IPv4 and IPv6 support</li>
+<li>Telnet and HTTP control interfaces.</li>
+<li>Different authentication and accounting methods (RADIUS, PAM, script, file, ...)</li>
+<li>NetFlow traffic accounting</li>
+<li>Network address translation (NAT)</li>
+<li>Dial-on-demand with idle timeout </li>
+<li>Dynamic demand based link management (also known as ``rubber bandwidth'') </li>
+<li>Powerful chat scripting language for asynchronous serial ports </li>
+<li>Pre-tested chat scripts for several common modems and ISDN TAs</li>
+<li>Clean device-type independent design </li>
+<li>Comprehensive logging</li>
+</ul>
+</p>
+<p>Mpd was originally developed at Whistle Communications, Inc.
+for use in the Whistle InterJet.
+It is based on the original <code>iij-ppp</code> user-mode PPP code,
+though it has been completely rewritten since then.
+Mpd is now hosted on sourceforge.net
+<A href="http://sourceforge.net/projects/mpd/">MPD Project Page</A>.
+</p>
+
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd1.html"><EM>Introduction</EM></A>
+ <b>:</b> <EM>Overview</EM><BR>
+<b>Previous:</b> <A HREF="mpd1.html"><EM>Introduction</EM></A><BR>
+<b>Next:</b> <A HREF="mpd3.html"><EM>Organization of this manual</EM></A>
+
+
+
+</BODY>
+</HTML>

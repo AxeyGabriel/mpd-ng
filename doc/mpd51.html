@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Script file format and execution</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A>
+ <b>:</b> <EM>Script file format and execution</EM><BR>
+<b>Previous:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A><BR>
+<b>Next:</b> <A HREF="mpd52.html"><EM>Events</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="51"></A>6.1. Script file format and execution</H2>
+<p>The syntax for <code>mpd.script</code> is similar to the other mpd
+configuration files. Lines beginning with a hash sign are ignored.
+A <b>label</b> sits on its own line, starting in the first
+column and ends with a colon character.</p>
+<p><b>Chat commands</b> are indented with tab characters and written
+one per line.</p>
+<p>Commands are executed sequentially.
+Execution continues without stopping until there is an error or
+one of the following commands is encountered:
+<ul>
+<li><b><code>success</code></b> The script returns success.</li>
+<li><b><code>failure</code></b> The script returns failure.</li>
+<li><b><code>wait</code></b> Execution of the script is halted
+until an <b>event</b> occurs.</li>
+</ul>
+
+Events are described in the next section.</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A>
+ <b>:</b> <EM>Script file format and execution</EM><BR>
+<b>Previous:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A><BR>
+<b>Next:</b> <A HREF="mpd52.html"><EM>Events</EM></A>
+
+
+
+</BODY>
+</HTML>

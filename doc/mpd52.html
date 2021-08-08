@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Events</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A>
+ <b>:</b> <EM>Events</EM><BR>
+<b>Previous:</b> <A HREF="mpd51.html"><EM>Script file format and execution</EM></A><BR>
+<b>Next:</b> <A HREF="mpd53.html"><EM>Timer events</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="52"></A>6.2. Events</H2>
+<p>An <b>event</b> is either the expiration of a timer, or the matching
+of some pattern in the input.  Events that have not happened yet are
+<b>pending events</b>. Pending events are created with the
+<code>timer</code> and <code>match</code> commands, respectively.</p>
+<p>Each pending event has an associated label (called the <b>target
+label</b>) of the event. When and if the event occurs, execution
+resumes starting at the target label. Events only occur during
+the execution of a <code>wait</code> command.</p>
+<p>Events are grouped into named <b>sets</b>. Events in the same
+set are usually related, in the sense that they represent alternate
+outcomes to the same situation.</p>
+<p>A set of pending events may be explicitly <b>cancelled</b>
+(i.e., forgotten) before they occur with the <b><code>cancel</code></b>
+command. All events in the set are cancelled.</p>
+<p>The other way a set of pending events may be cancelled is
+implicitly, when any event in the set occurs. Execution resumes
+at the target label associated with the event that occurred, and
+all other events in that set are immediately cancelled.</p>
+
+<H3>6.2.1. <A HREF="mpd53.html#53">Timer events</A></H3>
+<H3>6.2.2. <A HREF="mpd54.html#54">Match events</A></H3>
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A>
+ <b>:</b> <EM>Events</EM><BR>
+<b>Previous:</b> <A HREF="mpd51.html"><EM>Script file format and execution</EM></A><BR>
+<b>Next:</b> <A HREF="mpd53.html"><EM>Timer events</EM></A>
+
+
+
+</BODY>
+</HTML>

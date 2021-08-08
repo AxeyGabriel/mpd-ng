@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Hints for developers</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd64.html"><EM>Internals</EM></A>
+ <b>:</b> <EM>Hints for developers</EM><BR>
+<b>Previous:</b> <A HREF="mpd66.html"><EM>Authentication</EM></A><BR>
+<b>Next:</b> <A HREF="mpd68.html"><EM>References</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="67"></A>8.3. Hints for developers<A NAME="developer"></A></H2>
+<p>This chapter describes describes some hints for developers.</p>
+<p>
+<dl>
+
+<dt><b>Source-Code-Style</b><dd><p>There is not so much to say about that, just take a look at the existing 
+source files. <br>
+The Tab-Width is eight with an indent of fore. Please make a space between 
+operators and operands.</p>
+
+<dt><b>NgFuncGetStats</b><dd><p>NEVER call NgFuncGetStats() with the <em>clear</em> parameter set to true, because 
+there are other functions (echo requests/replies, bandwidth management) 
+wich relies on increasing link-stats. Mpd carries a copy of the netgraph 
+link-stats at link-level, just use these instead. You can call 
+LinkUpdateStats() for updating the internal stats-struct.</p>
+
+<dt><b>New Authentication-Backends</b><dd><p>Authentication backends must run independently from the rest of Mpd, i.e. 
+you must not access any Mpd resource, because 
+the authentication process is started in its own thread (you have to 
+take care about thread-safety). An <code>AuthData</code> object is passed 
+to your authenticating function which carries a copy of all required
+information. If your backend provides other parameters, like MTU, IP, etc. 
+then put these at the appropriate place into <code>AuthData</code> or 
+<code>Auth</code>.</p>
+<p>If you can not avoid reading from Mpd's internal data, then acquire the 
+Giant Mutex:
+<hr>
+<pre>
+[...]
+  pthread_mutex_lock(&amp;gGiantMutex);
+  [do whatever]
+  pthread_mutex_unlock(&amp;gGiantMutex);
+[...]
+</pre>
+<hr>
+</p>
+
+</dl>
+</p>
+
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd64.html"><EM>Internals</EM></A>
+ <b>:</b> <EM>Hints for developers</EM><BR>
+<b>Previous:</b> <A HREF="mpd66.html"><EM>Authentication</EM></A><BR>
+<b>Next:</b> <A HREF="mpd68.html"><EM>References</EM></A>
+
+
+
+</BODY>
+</HTML>

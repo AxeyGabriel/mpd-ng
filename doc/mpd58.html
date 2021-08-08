@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Special variables</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A>
+ <b>:</b> <A HREF="mpd57.html"><EM>Variables</EM></A>
+ <b>:</b> <EM>Special variables</EM><BR>
+<b>Previous:</b> <A HREF="mpd57.html"><EM>Variables</EM></A><BR>
+<b>Next:</b> <A HREF="mpd59.html"><EM>Script commands</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="58"></A>6.4.1. Special variables</H2>
+<p>These variables have special meaning in chat scripts:</p>
+<p>
+<dl>
+
+<dt><b><code>$Login</code></b><dd><p>Authorization login name as set by <code>set auth authname</code>.</p>
+
+<dt><b><code>$Password</code></b><dd><p>The password corresponding to <code>$Login</code>.</p>
+
+<dt><b><code>$modemDevice</code></b><dd><p>The serial port device in use as set by the
+<code>set modem device</code> command, e.g., <code>/dev/cuau0</code>.
+Changing this string does not change the port being used.</p>
+
+<dt><b><code>$Baudrate</code></b><dd><p>Always equals the current baudrate (e.g., ``57600''). This
+is a read/write variable; setting it changes the baudrate.
+Attempting to set an invalid baudrate causes the script to fail.</p>
+
+<dt><b><code>$matchedString</code></b><dd><p>When a <code>match</code> event occurs this string contains
+the input string that matched the pattern.</p>
+
+<dt><b><code>$matchedString0 </code></b><dd>
+<dt><b><code>$matchedString1 </code></b><dd>
+<dt><b><code>$matchedString2 </code></b><dd>
+<dt><b><code>... </code></b><dd>
+<p>When a <code>regex</code> event occurs or the <code>if match</code> or
+<code>if !match</code> commands are executed, and the regular
+expression pattern contains parenthesized subexpressions, these
+strings will be equal to the substrings matching each subexpression.
+<code>$matchedString0</code> is equal to the entire string, while
+<code>$matchedString1</code> equals the first subexpression match,
+<code>$matchedString2</code> the second, etc.</p>
+
+<dt><b><code>$IdleResult</code></b><dd><p>This variable is used to return the result of an <b>idle
+script</b>; If the value is <code>answer</code>, mpd assumes an
+incoming call has been answered. If the value is <code>ringback</code>,
+mpd will initiate an outgoing connection.  See the chapter on
+<A HREF="mpd43.html#modem">Modem type commands</A> for more information.</p>
+
+<dt><b><code>$$</code></b><dd><p>Always expands to a single dollar sign.</p>
+
+</dl>
+</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A>
+ <b>:</b> <A HREF="mpd57.html"><EM>Variables</EM></A>
+ <b>:</b> <EM>Special variables</EM><BR>
+<b>Previous:</b> <A HREF="mpd57.html"><EM>Variables</EM></A><BR>
+<b>Next:</b> <A HREF="mpd59.html"><EM>Script commands</EM></A>
+
+
+
+</BODY>
+</HTML>

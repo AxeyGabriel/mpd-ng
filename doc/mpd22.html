@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Bundle layer</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Bundle layer</EM><BR>
+<b>Previous:</b> <A HREF="mpd21.html"><EM>EAP</EM></A><BR>
+<b>Next:</b> <A HREF="mpd23.html"><EM>Encryption (ECP) layer</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="22"></A>4.4. Bundle layer<A NAME="bundle"></A></H2>
+
+<p>This chapter describes commands that configure the bundle layer.
+All of these commands (except <b><code>new</code></b>)
+apply to the currently active bundle, i.e.,
+the bundle shown at the command line prompt.</p>
+<p>
+<dl>
+
+<dt><b><code>set bundle period <em>seconds</em><br>
+set bundle hiwat <em>percent</em><br>
+set bundle lowat <em>percent</em><br>
+set bundle min-con <em>seconds</em><br>
+set bundle min-dis <em>seconds</em><br>
+set bundle links <em>link1</em> [ <em>...</em> ]</code></b><dd><p>These commands are only meaningful when bandwidth management is enabled.
+Mpd will attempt to bring up a new link from the list specified 
+or take down an existing link when the utilization goes above
+<code><em>hiwat</em></code> or below <code><em>lowat</em></code> percent,
+respectively. The utilization is sampled every <code><em>period</em></code>
+divided by 6 points, and is averaged over the past <code><em>period</em></code> seconds.</p>
+<p>Mpd will not attempt to disconnect a link unless previous one was 
+disconnected at least <code><em>min-dis</em></code> seconds before. 
+Similarly, mpd will not open a link unless previous was opened at least
+<code><em>min-con</em></code> seconds before. These two parameters
+help prevent oscillations, but cause slower response time.</p>
+
+<dt><b><code>set bundle fsm-timeout <em>seconds</em></code></b><dd><p>This sets the finite state machine (FSM) retry interval for all
+FSM's on this bundle. This command should only be used in exceptional
+situations, such as doing PPP over high-latency satellite links.
+The default is 2 seconds. </p>
+
+<dt><b><code>set bundle accept <em>option ...</em><br>
+set bundle deny <em>option ...</em><br>
+set bundle enable <em>option ...</em><br>
+set bundle disable <em>option ...</em><br>
+set bundle yes <em>option ...</em><br>
+set bundle no <em>option ...</em></code></b><dd><p>These commands configure various bundle options. Most options 
+are <em>bi-directional</em> in that they can be independently
+enabled and disabled in each direction.</p>
+
+<p>The <code><b>enable</b></code> and <code><b>disable</b></code> commands determine
+whether we want the corresponding option.
+The <code><b>accept</b></code> and <code><b>deny</b></code> commands determine
+whether we will allow the peer to request the corresponding option.</p>
+
+<p>The <b><code>yes</code></b> command is the same as
+<code><b>enable</b></code> and <code><b>accept</b></code>.
+The <b><code>no</code></b> command is the same as
+<code><b>disable</b></code> and <code><b>deny</b></code>.</p>
+
+</dl>
+</p>
+
+<p>The options available at the bundle layer are:</p>
+<p>
+<dl>
+
+<dt><b><code>bw-manage</code></b><dd><p>This command enables <em>bandwidth management</em>, in which mpd attempts
+to dynamically adjust the number of connected links depending on the
+traffic load.</p>
+<p>The proper functioning of bandwidth management depends on the correct
+latency and bandwidth information configured for each link; see the
+<code><b>set link latency</b></code> and <code><b>set link bandwidth</b></code>
+commands.</p>
+<p>The default for this option is off -- mpd connects the links ``all or none.''</p>
+
+<dt><b><code>round-robin</code></b><dd><p>When multilink PPP is enabled and there are two or more links
+connected, this option enables round robin packet scheduling
+across the links.  That is, instead of breaking each packet
+into fragments and delivering the individual fragments over
+all the links in the bundle, each packet is delivered whole
+over single link.  The link is chosen by rotating in round-robin
+fashion over all the links in the bundle.</p>
+<p>This option normally would result in higher latency and
+possible delays due to TCP packets being received out of order;
+however, it may help in certain situations of high packet
+loss or broken peer equipment.</p>
+<p>The default is disable.</p>
+
+<dt><b><code>ipcp</code></b><dd><p>Enable/Disable IPCP negotiation. For details see
+<A HREF="mpd26.html#ipcp">the IPCP layer chapter</A>.</p>
+<p>The default is enable.</p>
+
+<dt><b><code>ipv6cp</code></b><dd><p>Enable/Disable IPV6CP negotiation.</p>
+<p>The default is disable.</p>
+
+<dt><b><code>compression</code></b><dd><p>Enable/Disable CCP (Compression Control Protocol) negotiation. For details see
+<A HREF="mpd24.html#compression">the compression layer chapter</A>.</p>
+<p>The default is disable.</p>
+
+<dt><b><code>encryption</code></b><dd><p>Enable/Disable ECP (Encryption Control Protocol) negotiation. For details see
+<A HREF="mpd23.html#encryption">the encryption layer chapter</A>.</p>
+<p>The default is disable.</p>
+
+<dt><b><code>crypt-reqd</code></b><dd><p>Require encryption.
+When encryption support is compiled into mpd, this option
+causes mpd to drop the link if encryption cannot be successfully
+negotiated in both directions. This means in effect, ``use encryption
+or do not connect at all.''</p>
+<p>The default is disable.</p>
+
+</dl>
+</p>
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Bundle layer</EM><BR>
+<b>Previous:</b> <A HREF="mpd21.html"><EM>EAP</EM></A><BR>
+<b>Next:</b> <A HREF="mpd23.html"><EM>Encryption (ECP) layer</EM></A>
+
+
+
+</BODY>
+</HTML>

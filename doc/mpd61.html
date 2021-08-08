@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>The included mpd.script</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A>
+ <b>:</b> <EM>The included <code>mpd.script</code></EM><BR>
+<b>Previous:</b> <A HREF="mpd60.html"><EM>Errors</EM></A><BR>
+<b>Next:</b> <A HREF="mpd62.html"><EM>Troubleshooting</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="61"></A>6.7. The included <code>mpd.script</code></H2>
+<p>The <code>mpd.script</code> that ships with mpd can usually be used
+as it is without modification for typical PPP applications.
+This script defines the following labels:</p>
+<p>
+<dl>
+
+<dt><b><code>DialPeer</code></b><dd><p>This script causes mpd to attempt to identify the attached modem
+or ISDN Terminal Adapter device, configure the device, and dial
+a remote peer. This the label you want to use for the
+<code>set modem script</code> when acting as a dialup client.</p>
+<p>The variables that are used by this script are:</p>
+<p>
+<dl>
+
+<dt><b><code>$Telephone</code></b><dd><p>The telephone number to dial.</p>
+
+<dt><b><code>$DialPrefix</code></b><dd><p>Dialing prefix to get an outside line, if any.</p>
+
+<dt><b><code>$ConnectTimeout</code></b><dd><p>Time in seconds to wait for the modems to connect.
+Default 45 seconds.</p>
+
+<dt><b><code>$SpeakerOff</code></b><dd><p>Set this to <code>yes</code> if you want to silence the modem speaker
+while dialing.</p>
+
+<dt><b><code>$Serial230K</code></b><dd><p>If your serial port is capable of running at 230K baud,
+set this to <code>yes</code>. Note: normal PC hardware is
+not capable of 230K.</p>
+
+</dl>
+</p>
+<p>In addition, the following variables are required to be set
+for ISDN terminal adapters:</p>
+<p>
+<dl>
+
+<dt><b><code>$TA_Bonding</code></b><dd><p>If the terminal adapter should do 2 B-channel multi-link
+PPP, set this to <code>yes</code>. Note: a terminal adapter
+doing multi-link PPP still <em>appears</em> to mpd as a
+single link PPP connection and should be configured as
+such.</p>
+
+<dt><b><code>$TA_NoDoubleTelno</code></b><dd><p>When <code>$TA_Bonding</code> is <code>yes</code>, do not double
+the dialed number. Normally, in such situations mpd dials
+using the command <code>ATDT${Telephone}&amp;${Telephone}</code>.
+If your <code>$Telephone</code> string already contains both
+numbers, then set <code>$TA_NoDoubleTelno</code> to <code>yes</code>.</p>
+
+<dt><b><code>$TA_56K</code></b><dd><p>If you need to restrict the B channels to to 56K, set this
+to <code>yes</code>.
+Only necessary for some North American ISDN lines.</p>
+
+<dt><b><code>$TA_VoiceCall</code></b><dd><p>If you need to place a voice mode call, set this to <code>yes</code>.
+Only necessary for some North American ISDN lines.
+Not all terminal adapters support this.</p>
+
+<dt><b><code>$TA_AuthChap</code></b><dd><p>Some older terminal adapters require you to specify <em>a priori</em>
+whether CHAP or PAP authentication will be requested by the remote
+side. Set to <code>yes</code> to tell the terminal adapter to use CHAP.</p>
+
+<dt><b><code>$TA_SwitchType</code></b><dd><p>Set this to your ISDN line's switch type. Should be one
+of <code>NI-1</code>, <code>DMS-100</code>, <code>5ESS P2P</code>,
+or <code>5ESS MP</code>.
+Only required for North American ISDN.</p>
+
+<dt><b><code>$TA_Dirno1</code></b><dd>
+<dt><b><code>$TA_Dirno2</code></b><dd>
+<dt><b><code>$TA_SPID1</code></b><dd>
+<dt><b><code>$TA_SPID2</code></b><dd><p>Set these to your ISDN line's directory numbers and SPID's
+for both B channels.  Only required for North American ISDN.</p>
+
+</dl>
+</p>
+
+<dt><b><code>AnswerCall</code></b><dd><p>This is an <b>idle script</b> that waits for an incoming call
+and then answers it. The variables that are used by this script are:</p>
+<p>
+<dl>
+
+<dt><b><code>$ConnectTimeout</code></b><dd><p>Time in seconds to wait for the modems to connect.
+Default 45 seconds.</p>
+
+<dt><b><code>$RingTimeout</code></b><dd><p>How long to wait for a RING before giving up and
+trying again. Default 10 minutes.</p>
+
+</dl>
+</p>
+
+<dt><b><code>Ringback</code></b><dd><p>This is also an idle script that waits for an incoming call,
+but instead of answering the call it ignores it and initiates
+an outgoing connection. This is useful for remotely bringing
+up a dialup client machine.</p>
+<p>
+<dl>
+
+<dt><b><code>$RingbackTimeout</code></b><dd><p>How long before giving up (reset and try again).
+Default: 60 minutes.</p>
+
+<dt><b><code>$RingStoppedTime</code></b><dd><p>For analog modems, we have to wait for the ringing to
+stop before trying to dial out, otherwise we'll inadvertently
+answer the incoming call. This value is set to the minimum
+time to wait before declaring that the ringing has stopped.
+Default: 8 seconds.</p>
+
+</dl>
+</p>
+
+</dl>
+</p>
+
+
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A>
+ <b>:</b> <EM>The included <code>mpd.script</code></EM><BR>
+<b>Previous:</b> <A HREF="mpd60.html"><EM>Errors</EM></A><BR>
+<b>Next:</b> <A HREF="mpd62.html"><EM>Troubleshooting</EM></A>
+
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Compression (CCP) layer</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Compression (CCP) layer</EM><BR>
+<b>Previous:</b> <A HREF="mpd23.html"><EM>Encryption (ECP) layer</EM></A><BR>
+<b>Next:</b> <A HREF="mpd25.html"><EM>MPPC protocol</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="24"></A>4.6. Compression (CCP) layer<A NAME="compression"></A></H2>
+
+<p>This chapter describes commands that configure the Compression Control
+Protocol (CCP) layer. All of these commands apply to the currently
+active bundle.</p>
+<p>To use CCP you should enable compression at the bundle level.
+To allow compression to be negotiated you should enable here some of 
+compression protocols.</p>
+<p>
+<dl>
+
+<dt><b><code>set ccp accept <em>option ...</em> </code></b><dd>
+<dt><b><code>set ccp deny <em>option ...</em> </code></b><dd>
+<dt><b><code>set ccp enable <em>option ...</em> </code></b><dd>
+<dt><b><code>set ccp disable <em>option ...</em> </code></b><dd>
+<dt><b><code>set ccp yes <em>option ...</em> </code></b><dd>
+<dt><b><code>set ccp no <em>option ...</em> </code></b><dd>
+<p>These commands configure various CCP options. Each direction of
+traffic (transmit and receive) is independent from the other.
+All options default to <code><b>disable</b></code> and <code><b>deny</b></code>.</p>
+<p>The <code><b>enable</b></code> and <code><b>disable</b></code> commands determine
+whether we desire the corresponding option on received data.
+The <code><b>accept</b></code> and <code><b>deny</b></code> commands determine
+whether we will allow the peer to request the corresponding option
+(which we must enable on our transmitted data).</p>
+
+<p>The <b><code>yes</code></b> command is the same as
+<code><b>enable</b></code> and <code><b>accept</b></code>.
+The <b><code>no</code></b> command is the same as
+<code><b>disable</b></code> and <code><b>deny</b></code>.</p>
+
+</dl>
+</p>
+
+<p>The options available at the CCP layer are listed below.</p>
+<p>
+<dl>
+
+<dt><b><code>pred1</code></b><dd><p>This option enables Predictor-1 (RFC 1978) compression.
+Predictor-1 compression is much faster then Deflate.</p>
+<p>This option requires ng_pred1 Netgraph node type, which is present
+since FreeBSD 6.2-STABLE of 2007-01-28.
+If there is no ng_pred1 in system, this algorithm is supported
+in user-level, but will consume more CPU power.</p>
+<p>The default is disable.</p>
+
+<dt><b><code>deflate</code></b><dd><p>This option enables Deflate (RFC 1979) compression.
+Deflate compression usually gives better compression ratio then Predictor-1.</p>
+<p>This option requires ng_deflate Netgraph node type, which is present
+since FreeBSD 6.2-STABLE of 2007-01-28.</p>
+<p>The default is disable.</p>
+
+<dt><b><code>mppc</code></b><dd><p>This option enables MPPC compression/encryption subprotocol.
+For details see 
+<A HREF="mpd25.html#mppc">the MPPC protocol chapter</A>.</p>
+<p>The default is disable.</p>
+
+</dl>
+</p>
+<H3>4.6.1. <A HREF="mpd25.html#25">MPPC protocol</A></H3>
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Compression (CCP) layer</EM><BR>
+<b>Previous:</b> <A HREF="mpd23.html"><EM>Encryption (ECP) layer</EM></A><BR>
+<b>Next:</b> <A HREF="mpd25.html"><EM>MPPC protocol</EM></A>
+
+
+
+</BODY>
+</HTML>

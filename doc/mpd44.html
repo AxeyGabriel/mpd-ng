@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Netgraph device type commands</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd42.html"><EM>Device Types</EM></A>
+ <b>:</b> <EM>Netgraph device type commands</EM><BR>
+<b>Previous:</b> <A HREF="mpd43.html"><EM>Modem type commands</EM></A><BR>
+<b>Next:</b> <A HREF="mpd45.html"><EM>TCP device type commands</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="44"></A>5.2. Netgraph device type commands<A NAME="netgraph"></A></H2>
+<p>This chapter describes commands that are specific to netgraph type links.
+These commands apply to the currently active link, and are only
+valid if the currently active link has type <b>ng</b>.</p>
+<p>Note that this device type has no direct way to detect a physical layer
+disconnection (i.e., what would be analogous to loss of carrier detect)
+except by receiving a write error. One way to achieve this is to
+insure that when the physical layer goes down, the connection to
+the Netgraph hook is broken.</p>
+<p>
+<dl>
+
+<dt><b><code>set ng node <em>nodepath</em></code></b><dd>
+<dt><b><code>set ng hook <em>hook</em></code></b><dd><p>These commands configure which Netgraph node, and which hook on that
+node, mpd is supposed to connect to. The node is found via the
+absolute Netgraph address <code><em>nodepath</em></code> and must have
+a free hook named <code><em>hook</em></code>. Both of these commands
+are required.</p>
+<p>The hook should be connectable directly to a link hook of the
+<code>ng_ppp(3)</code> netgraph node type.  That is, it should be
+prepared to transmit and receive PPP frames starting with the
+address and control fields (unless compressed), followed by the
+PPP protocol number and information fields, but containing no
+checksum field.</p>
+
+</dl>
+</p>
+
+
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd42.html"><EM>Device Types</EM></A>
+ <b>:</b> <EM>Netgraph device type commands</EM><BR>
+<b>Previous:</b> <A HREF="mpd43.html"><EM>Modem type commands</EM></A><BR>
+<b>Next:</b> <A HREF="mpd45.html"><EM>TCP device type commands</EM></A>
+
+
+
+</BODY>
+</HTML>

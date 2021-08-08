@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Script commands</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A>
+ <b>:</b> <EM>Script commands</EM><BR>
+<b>Previous:</b> <A HREF="mpd58.html"><EM>Special variables</EM></A><BR>
+<b>Next:</b> <A HREF="mpd60.html"><EM>Errors</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="59"></A>6.5. Script commands</H2>
+<p>
+<dl>
+
+<dt><b><code>set $<em>variable-name</em> <em>string</em> </code></b><dd><p>Set the <code>$<em>variable-name</em></code> equal to
+<code><em>string</em></code>. The <code><em>string</em></code> is
+variable expanded first.</p>
+
+<dt><b><code>match <em>name</em> <em>string</em> <em>label</em> </code></b><dd>
+<dt><b><code>match <em>string</em> <em>label</em> </code></b><dd>
+<dt><b><code>match <em>string</em> </code></b><dd>
+<p>Add a new pending event to event set <code><em>name</em></code>
+such that when <code><em>string</em></code> is seen in the input,
+resume execution at <code><em>label</em></code>. The match must
+be exact. All arguments are variable expanded.</p>
+<p>If no <code><em>name</em></code> is given, or if <code><em>name</em></code>
+is the empty string, add the new event to the default set.</p>
+<p>If no <code><em>label</em></code> is given, or if <code><em>label</em></code>
+is the empty string, the event causes execution to resume
+starting with the statement following the <code>wait</code> command
+(i.e., use the default target).</p>
+
+<dt><b><code>regex <em>name</em> <em>pattern</em> <em>label</em> </code></b><dd>
+<dt><b><code>regex <em>pattern</em> <em>label</em> </code></b><dd>
+<dt><b><code>regex <em>pattern</em> </code></b><dd>
+<p>Same as the <code>match</code> command, but matches an extended
+regular expression instead of an exact string. If
+<code><em>pattern</em></code> is not a valid extended regular
+expression, the script fails.</p>
+<p>Regular expressions are matched on a line-by-line basis; the
+input matching the pattern cannot span more than one line.  A
+line is terminated with either a newline or a carriage return-newline
+pair (the latter is more common). An end-of-line should
+be matched using a dollar sign rather than trying to match these
+characters directly, as mpd elides them from the input when
+testing the regular expression.</p>
+<p>See <code>re_format(7)</code> for more information about extended
+regular expressions.</p>
+
+<dt><b><code>timer <em>name</em> <em>seconds</em> <em>label</em> </code></b><dd>
+<dt><b><code>timer <em>seconds</em> <em>label</em> </code></b><dd>
+<dt><b><code>timer <em>seconds</em> </code></b><dd>
+<p>Add a new pending event to set <code><em>name</em></code> such that
+when <code><em>seconds</em></code> seconds have elapsed,
+resume execution at <code><em>label</em></code>.
+All arguments are variable expanded.</p>
+<p>If no <code><em>name</em></code> is given, or if <code><em>name</em></code>
+is the empty string, add the new event to the default set.</p>
+<p>If no <code><em>label</em></code> is given, or if <code><em>label</em></code>
+is the empty string, the event causes execution to resume
+starting with the statement following the <code>wait</code> command
+(i.e., use the default target).</p>
+
+<dt><b><code>wait </code></b><dd>
+<dt><b><code>wait <em>seconds</em> </code></b><dd>
+<p>In the first form, wait indefinitely for any event to happen.
+When an event happens, continue execution starting at the target
+label for that event.</p>
+<p>The second form is equivalent to:</p>
+<p>
+<blockquote><code>
+<code>timer <em>seconds</em><br>
+wait</code>
+</code></blockquote>
+</p>
+
+<dt><b><code>if <em>string1</em> == <em>string2</em>
+<em>command</em> </code></b><dd>
+<dt><b><code>if <em>string1</em> != <em>string2</em>
+<em>command</em> </code></b><dd>
+<p>Executes <code><em>command</em></code> if the two variable expanded
+strings are equal or not equal.</p>
+
+<dt><b><code>if <em>string</em> match <em>pattern</em>
+<em>command</em> </code></b><dd>
+<dt><b><code>if <em>string</em> !match <em>pattern</em>
+<em>command</em> </code></b><dd>
+<p>Tests <code><em>string</em></code> against the regular expression
+<code><em>pattern</em></code> and executes <code><em>command</em></code>
+if <code><em>string</em></code> matches or does not match.  Both
+<code><em>string</em></code> and <code><em>pattern</em></code> are
+variable expanded first.</p>
+
+<dt><b><code>print <em>string</em> </code></b><dd><p>Ouput the <code><em>string</em></code> to the serial port.
+Variables are expanded, and the normal mpd C-style character
+escapes may be used.</p>
+
+<dt><b><code>cancel <em>name1</em> [ <em>name2</em> ... ] </code></b><dd><p>Cancel all pending events in the sets <code><em>name1</em></code>,
+<code><em>name2</em></code>, etc.
+It is not an error to cancel a set which is already empty.</p>
+
+<dt><b><code>goto <em>label</em> </code></b><dd><p>Jump to label <code><em>label</em></code>.</p>
+
+<dt><b><code>call <em>label</em> </code></b><dd><p>Call a subroutine at <code><em>label</em></code>.</p>
+
+<dt><b><code>return </code></b><dd><p>Return from subroutine.</p>
+
+<dt><b><code>success </code></b><dd><p>Exit the script successfully.</p>
+
+<dt><b><code>failure </code></b><dd><p>Exit the script unsuccessfully.</p>
+
+<dt><b><code>log <em>string</em> </code></b><dd><p>Print <code><em>string</em></code>, variable expanded, to the log
+file under logging level CHAT.</p>
+
+</dl>
+</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A>
+ <b>:</b> <EM>Script commands</EM><BR>
+<b>Previous:</b> <A HREF="mpd58.html"><EM>Special variables</EM></A><BR>
+<b>Next:</b> <A HREF="mpd60.html"><EM>Errors</EM></A>
+
+
+
+</BODY>
+</HTML>

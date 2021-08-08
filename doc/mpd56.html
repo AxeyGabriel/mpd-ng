@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Special sets and targets</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A>
+ <b>:</b> <A HREF="mpd55.html"><EM>Sets</EM></A>
+ <b>:</b> <EM>Special sets and targets</EM><BR>
+<b>Previous:</b> <A HREF="mpd55.html"><EM>Sets</EM></A><BR>
+<b>Next:</b> <A HREF="mpd57.html"><EM>Variables</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="56"></A>6.3.1. Special sets and targets</H2>
+<p>The <code>timer</code>, <code>match</code> and <code>regex</code> commands
+may specify (by omission) the <b>default set</b>. This set is
+exactly like any other set, except that it is automatically
+cancelled after the occurrence of <em>any</em> event. It may be
+explicitly named by using the empty string, (ie, <code>""</code>).</p>
+<p>The <code>timer</code>, <code>match</code> and <code>regex</code> commands
+may also specify (by omission) the <b>default target</b>. This
+target, whose name is also the empty string, has the special
+propery that it always refers to ``the statement immediately
+following the next wait statement.''  That is, if the target of
+any event is the default target, the occurrence of that event
+just causes execution to continue starting with the statement
+following the wait statement.</p>
+<p>Finally, when <b><code>all</code></b> is used with the ``cancel''
+command, <em>all</em> sets (i.e., all pending events) are cancelled.</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd50.html"><EM>Chat Scripting</EM></A>
+ <b>:</b> <A HREF="mpd55.html"><EM>Sets</EM></A>
+ <b>:</b> <EM>Special sets and targets</EM><BR>
+<b>Previous:</b> <A HREF="mpd55.html"><EM>Sets</EM></A><BR>
+<b>Next:</b> <A HREF="mpd57.html"><EM>Variables</EM></A>
+
+
+
+</BODY>
+</HTML>

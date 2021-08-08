@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Web server</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Web server</EM><BR>
+<b>Previous:</b> <A HREF="mpd40.html"><EM>Control console</EM></A><BR>
+<b>Next:</b> <A HREF="mpd42.html"><EM>Device Types</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="41"></A>4.16. Web server<A NAME="web"></A></H2>
+<p>Mpd provides HTTP interface for monitoring and control purposes.
+This chapter describes commands for configuring Mpd's web server.</p>
+<p>
+<dl>
+
+<dt><b><code>set web open</code></b><dd><p>Opens the web server, i.e., creates the listening TCP socket.</p>
+
+<dt><b><code>set web close</code></b><dd><p>Closes the web server, i.e., closes the listening TCP socket.</p>
+
+<dt><b><code>set web self <em>ip</em> [ <em>port</em> ]</code></b><dd><p>Sets the credentials for the web-listener. After changing one of these
+options, the web must be closed and re-opened for the changes to
+take effect.</p>
+<p>The default is '127.0.0.1 5006'.</p>
+
+</dl>
+</p>
+
+
+<p>
+<dl>
+
+<dt><b><code>set web enable <em>option ...</em><br>
+set web disable <em>option ...</em></code></b><dd><p>These commands configure various web server options.</p>
+
+<p>The <code><b>enable</b></code> and <code><b>disable</b></code> commands determine
+whether we want the corresponding option.</p>
+<p>The options available for the web are:</p>
+
+<dt><b><code>auth</code></b><dd><p>This option enables basic authorization on web server.</p>
+<p>The default is enable.</p>
+
+</dl>
+</p>
+<p>You can send any set of command allowed by privileges via WEB server for mpd
+infrastructure integration. Depending on URL used mpd supports two response
+formats: text/html (/cmd?command1&amp;...) and text/plain (/bincmd?command1&amp;...).
+Also you can see output `show summary` command in JSON format, typing `/json`
+in URL.</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Web server</EM><BR>
+<b>Previous:</b> <A HREF="mpd40.html"><EM>Control console</EM></A><BR>
+<b>Next:</b> <A HREF="mpd42.html"><EM>Device Types</EM></A>
+
+
+
+</BODY>
+</HTML>

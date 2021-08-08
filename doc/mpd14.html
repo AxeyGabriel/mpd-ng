@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>mpd.secret</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd9.html"><EM>Running Mpd</EM></A>
+ <b>:</b> <A HREF="mpd11.html"><EM>Configuration file format</EM></A>
+ <b>:</b> <EM><code>mpd.secret</code></EM><BR>
+<b>Previous:</b> <A HREF="mpd13.html"><EM><code>mpd.conf</code></EM></A><BR>
+<b>Next:</b> <A HREF="mpd15.html"><EM><code>mpd.script</code></EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="14"></A>3.2.3. <code>mpd.secret</code></H2>
+<p>This file contains login, password pairs, one entry per line.
+Each entry may have an optional third argument, which is
+an IP address with optional netmask width. This is used
+when negotiating IP addresses with the corresponding peer.
+We restrict the allowable IP addresses we'll assign to the
+peer to lie within the specified range.</p>
+<p>In the example below, we define two ISP accounts that we
+use to connect to the Internet. Also, we have three friends
+who are allowed to connect to us, and we want to restrict
+the IP addresses that we'll let them have. Finally, the last
+user's password is retrieved by an external program.
+<blockquote><code>
+<pre>
+#
+# mpd.secret configuration file
+#
+
+# my two ISP accounts
+mylogin1    password1
+mylogin2    "Xka \r\n"
+
+# my three friends
+bob         "akd\"ix23"   192.168.1.100
+jerry       "33dk88kz3"   192.168.1.101
+phil        "w*d9m&amp;_4X"   192.168.1.128/25
+
+# An external password access program
+gregory     "!/usr/local/etc/mpd/get_passwd.sh"
+</pre>
+</code></blockquote>
+
+Here <code>bob</code> and <code>jerry</code> must negotiate 
+<code>192.168.1.100</code> and <code>192.168.1.101</code>,
+respectively, while <code>phil</code> can ask for any
+address from <code>192.168.1.128</code> through <code>192.168.1.255</code>.</p>
+<p>The leading ``!'' means that the password for user <code>gregory</code> is not
+stored in the <code>mpd.secret</code> file directly.  Instead, the
+named program is run with the username being authenticated as an
+additional argument (so in this case the command line would be
+``<code>/usr/local/etc/mpd/get_passwd.sh gregory</code>''). The command string
+may include initial, fixed arguments as well. This program
+should print the plaintext password for the named user as a
+single line to standard output, and then exit.  <code>Mpd</code> will block
+for this operation, so the program should respond and exit quickly.
+If there is an error, the command should print an empty line, or just not
+print anything.</p>
+<p>As a special case, if the username in the <code>mpd.secret</code> file
+is ``*'', then this line must be last as it matches any username.
+Then it is up to the external program to determine whether the
+username is valid. This wildcard matching only works for ``!'' lines.</p>
+<p>The total length of the executed command must be less than 128
+characters.  The program is run as the same user who runs
+<code>mpd</code>, which is usually <code>root</code>, so the usual
+care should be taken with scripts run as root, e.g., make sure the
+script is not world-readable or world-writable.  Standard input and
+standard error are inherited from the parent <code>mpd</code> process.
+Note that any additional arguments will be visible to users on the
+local machine running <code>ps(1)</code>.</p>
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd9.html"><EM>Running Mpd</EM></A>
+ <b>:</b> <A HREF="mpd11.html"><EM>Configuration file format</EM></A>
+ <b>:</b> <EM><code>mpd.secret</code></EM><BR>
+<b>Previous:</b> <A HREF="mpd13.html"><EM><code>mpd.conf</code></EM></A><BR>
+<b>Next:</b> <A HREF="mpd15.html"><EM><code>mpd.script</code></EM></A>
+
+
+
+</BODY>
+</HTML>

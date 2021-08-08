@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Network Address Translation (NAT)</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Network Address Translation (NAT)</EM><BR>
+<b>Previous:</b> <A HREF="mpd38.html"><EM>IP address pools</EM></A><BR>
+<b>Next:</b> <A HREF="mpd40.html"><EM>Control console</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="39"></A>4.14. Network Address Translation (NAT)<A NAME="nat"></A></H2>
+
+<p>This chapter describes commands for configuring Network Address
+Translation on Mpd's interfaces. NAT is implemented by 
+<code>ng_nat(4)</code> node. To enable it on a particular
+interface <code>nat</code> option should be used.</p>
+<p><b>Note:</b> ng_nat node is available only on FreeBSD 6.0-RELEASE
+and newer. Some additional options like setting target address
+implemented in later versions.</p>
+<p>
+<dl>
+
+<dt><b><code>set nat address <em>ip</em></code></b><dd><p>Set alias IP address. If not specified, interface IP will be used.</p>
+
+<dt><b><code>set nat target <em>ip</em></code></b><dd><p>Set target IP address for unknown incoming packets. If not specified,
+packet will not be modified.</p>
+
+<dt><b><code>set nat red-addr <em>alias_addr</em> <em>local_addr</em></code></b><dd><p>Redirect traffic for public (alias) IP address to a machine on the local network.</p>
+
+<dt><b><code>set nat red-proto <em>proto</em> <em>alias_addr</em> <em>local_addr</em> [ <em>remote_addr</em> ]</code></b><dd><p>Redirect traffic of specified protocol for public (alias) IP address
+(optionally from specified remote address)
+to a machine on the local network.</p>
+
+<dt><b><code>set nat red-port <em>proto</em> <em>alias_addr</em> <em>alias_port</em> <em>local_addr</em> <em>local_port</em> [ <em>remote_addr</em> <em>remote_port</em> ]</code></b><dd><p>Redirect incoming connections arriving to given public (alias) address and port,
+(optionally from specified remote address)
+to a host and port of a machine on the local network.</p>
+
+<dt><b><code>unset nat red-addr <em>alias_addr</em> <em>local_addr</em></code></b><dd><p>Deletes specific <em>set nat red-addr ...</em> rule.</p>
+
+<dt><b><code>unset nat red-proto <em>proto</em> <em>alias_addr</em> <em>local_addr</em> [ <em>remote_addr</em> ]</code></b><dd><p>Deletes specific <em>set nat red-proto ...</em> rule.</p>
+
+<dt><b><code>unset nat red-port <em>proto</em> <em>alias_addr</em> <em>alias_port</em> <em>local_addr</em> <em>local_port</em> [ <em>remote_addr</em> <em>remote_port</em> ]</code></b><dd><p>Deletes specific <em>set nat red-port ...</em> rule.</p>
+
+<dt><b><code>set nat enable <em>option ...</em> </code></b><dd>
+<dt><b><code>set nat disable <em>option ...</em> </code></b><dd>
+<p>Enable and disable nat options.</p>
+
+</dl>
+</p>
+
+<p>The following options are supported:</p>
+<p>
+<dl>
+
+<dt><b><code>log</code></b><dd><p>Enable statistics logging.</p>
+<p>Default is disable.</p>
+
+<dt><b><code>incoming</code></b><dd><p>Allow unknown incoming packets to pass.</p>
+<p>Default is enable.</p>
+
+<dt><b><code>same-ports</code></b><dd><p>Try to use same ports while aliasing.</p>
+<p>Default is enable.</p>
+
+<dt><b><code>unreg-only</code></b><dd><p>Enables aliasing only for unregistered networks.</p>
+<p>Default is disable.</p>
+
+</dl>
+</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Network Address Translation (NAT)</EM><BR>
+<b>Previous:</b> <A HREF="mpd38.html"><EM>IP address pools</EM></A><BR>
+<b>Next:</b> <A HREF="mpd40.html"><EM>Control console</EM></A>
+
+
+
+</BODY>
+</HTML>

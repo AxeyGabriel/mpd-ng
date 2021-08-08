@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>MPPC protocol</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <A HREF="mpd24.html"><EM>Compression (CCP) layer</EM></A>
+ <b>:</b> <EM>MPPC protocol</EM><BR>
+<b>Previous:</b> <A HREF="mpd24.html"><EM>Compression (CCP) layer</EM></A><BR>
+<b>Next:</b> <A HREF="mpd26.html"><EM>IPCP layer</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="25"></A>4.6.1. MPPC protocol<A NAME="mppc"></A></H2>
+<p>  
+Mpd implements Microsoft Point-to-point compression (MPPC)
+CCP subprotol. To enable it, 'mppc' option should be enabled at the CCP layer.</p>
+<p>MPPC CCP subprotocol consists of MPPC compression and MPPE encryption parts.
+To make MPPC CCP actually do something you should enable some of them using
+options below.</p>
+<p>
+<dl>
+
+<dt><b><code>set mppc accept <em>option ...</em> </code></b><dd>
+<dt><b><code>set mppc deny <em>option ...</em> </code></b><dd>
+<dt><b><code>set mppc enable <em>option ...</em> </code></b><dd>
+<dt><b><code>set mppc disable <em>option ...</em> </code></b><dd>
+<dt><b><code>set mppc yes <em>option ...</em> </code></b><dd>
+<dt><b><code>set mppc no <em>option ...</em> </code></b><dd>
+<p>These commands configure various MPPC options.</p>
+
+<dt><b><code>compress</code></b><dd><p>Enables MPPC compression. This is the only compression method supported by 
+Microsoft Windows RAS.</p>
+<p>Note: This option requires ng_mppc node to be built with compression support,
+which is disabled by default, requiring external compressor code.
+Open-source implementation of this code, based on RFC2118, could be found
+at http://mavhome.dp.ua/MPPC/. But MPPC compression algorithm itself covered
+by US patent, so you may need to contact Hi/Fn Inc. to obtain their proprietary
+implementation.
+If kernel support is not detected, compression will not be negotiated.
+Use 'show version' command to get actual status.</p>
+<p>The default is disable.</p>
+
+<dt><b><code>e40</code></b><dd><p>Enables 40-bit MPPE encryption.</p>
+<p>The default is disable.</p>
+
+<dt><b><code>e56</code></b><dd><p>Enables 56-bit MPPE encryption.</p>
+<p>The default is disable.</p>
+
+<dt><b><code>e128</code></b><dd><p>Enables 128-bit MPPE encryption.</p>
+<p>Note: in order for MPPE encryption to work, MS-CHAPv1 or MS-CHAPv2 auth
+is mandatory, because the MPPE keys are generated using the authentication
+results. If MS-CHAP auth is not used by link, encryption will not be negotiated.</p>
+<p>The default is disable.</p>
+
+<dt><b><code>stateless</code></b><dd><p>Enables stateless mode. This mode requires more CPU time and is somewhat
+less secure, but allows faster recovery in the face of lost packets.</p>
+<p>The default is disable.</p>
+
+<dt><b><code>policy</code></b><dd><p>If enabled, Mpd uses the MPPE-Types and MPPE-Policy info from the authentication 
+backend.</p>
+<p>The default is disable.</p>
+
+</dl>
+</p>
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <A HREF="mpd24.html"><EM>Compression (CCP) layer</EM></A>
+ <b>:</b> <EM>MPPC protocol</EM><BR>
+<b>Previous:</b> <A HREF="mpd24.html"><EM>Compression (CCP) layer</EM></A><BR>
+<b>Next:</b> <A HREF="mpd26.html"><EM>IPCP layer</EM></A>
+
+
+
+</BODY>
+</HTML>

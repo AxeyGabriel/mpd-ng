@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Dynamic Authorization</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Dynamic Authorization</EM><BR>
+<b>Previous:</b> <A HREF="mpd31.html"><EM>External authentication</EM></A><BR>
+<b>Next:</b> <A HREF="mpd33.html"><EM>Traffic accounting</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="32"></A>4.11. Dynamic Authorization<A NAME="dynauth"></A></H2>
+
+<p>After session has been first time authorized by AAA subsystem,
+Mpd provides you several ways to affect it's further operation.
+Process of affecting established session called dynamic authorization.</p>
+<p>There are two types of dynamic authorization activities exist:
+Disconnect (terminate session, causing it's graceful shutdown)
+and Change of Authorization, CoA (changing session operation
+parameters, such as speed, ACLs and so on, on-flight)</p>
+<p>
+<dl>
+<p>Mpd provides several different control interfaces, that can be used
+to implement dynamic authorization.</p>
+
+<dt><b>Control consoles</b><dd><p>The basic method of controlling mpd is it's STDIN and TCP
+<b>
+<A HREF="mpd40.html#console">consoles</A></b>.</p>
+<p>You can disconnect any session by connecting to console, selecting
+required session with any command for changing current context, such
+as: <em>link</em>, <em>bundle</em>, <em>session</em>, <em>msession</em>
+and so on, and using <em>close</em> command.</p>
+
+<dt><b>Web server</b><dd><p>Mpd provides two <b>
+<A HREF="mpd41.html#web">Web</A></b> interfaces:
+human (text/html) and binary (text/plain).</p>
+<p>Human web interface allows you disconnect specified session just by
+clicking on respective <em>[Close]</em> link on the
+"Current status summary" web page on mpd built-in web server.</p>
+<p>Binary web interface provides API for executing any of control console
+commands via HTTP request. For example, to disconnect session on
+link named L125 you may use such HTTP request:
+<em>/bincmd?link%20L125&amp;close</em></p>
+
+<dt><b>RADIUS accounting</b><dd><p>Mpd provides simple, but non-standard method of disconnecting session
+using <b>
+<A HREF="mpd30.html#radius">RADIUS</A></b> accounting reply.
+To disconnect arbitrary session you may just include <em>mpd-drop-user</em>
+attribute with nonzero value into any accounting reply packet.</p>
+<p>This method considered not to be completely reliable, as AAA receives
+no acknowledge that accounting reply packet was received by mpd. The
+only thing guarantied, is that on packet loss mpd will retry accounting
+sending for specified number of times before giveup.</p>
+
+<dt><b>Built-in RADIUS server</b><dd><p>RFC 3576: "Dynamic Authorization Extensions to RADIUS" defines standard
+way to implement dynamic authorization. It defines two additional RADIUS
+request types: Disconnect-Request and CoA-Request, to be sent from AAA
+server to dedicated UDP port on NAS with regular RADIUS protocol.</p>
+<p>To have this function working, mpd should be built with <em>libradius</em>
+library, having RADIUS server functionality (FreeBSD 7/8-STABLE after
+2009-10-30).</p>
+<p>This chapter describes commands that configure mpd's built-in RADIUS
+server. All of these commands are executed in global context.</p>
+<p>
+<dl>
+
+<dt><b><code>set radsrv open</code></b><dd><p>Opens the RADIUS server, i.e., creates the listening UDP socket.</p>
+
+<dt><b><code>set radsrv close</code></b><dd><p>Closes the RADIUS server, i.e., closes the listening UDP socket.</p>
+
+<dt><b><code>set radsrv self <em>ip</em> [ <em>port</em> ]</code></b><dd><p>Sets the credentials for the RADIUS-listener. After changing one of these
+options, the RADIUS server  must be closed and re-opened for the changes to
+take effect.</p>
+<p>The default is '0.0.0.0 3799'.</p>
+
+<dt><b><code>set radsrv peer <em>ip</em> <em>secret</em></code></b><dd><p>Defines additional AAA server, allowed to contact this NAS. After changing
+one of these options, the RADIUS server  must be closed and re-opened for
+the changes to take effect.</p>
+
+<dt><b><code>set radsrv enable <em>option ...</em><br>
+set radsrv disable <em>option ...</em></code></b><dd><p>These commands configure various RADIUS server options.</p>
+
+<p>The <code><b>enable</b></code> and <code><b>disable</b></code> commands determine
+whether we want the corresponding option.</p>
+<p>The options available for the RADIUS server are:</p>
+
+<dt><b><code>coa</code></b><dd><p>This option enables CoA-Request support on RADIUS server.</p>
+<p>The default is enable.</p>
+
+<dt><b><code>disconnect</code></b><dd><p>This option enables Disconnect-Request support on RADIUS server.</p>
+<p>The default is enable.</p>
+
+</dl>
+
+Dynamic authorization RADIUS server receives three groups of attributes:
+NAS identification (to be sure that request got to the right server),
+session identification (to identify session that should be affected)
+and session parameters (to describe new session state to set).
+NAS and session identification attributes are native part of any
+Disconnect or CoA request, while session parameters could be used only
+with CoA. At least one session identification attribute must be present
+in request. If there are several identification attributes present,
+session should match all of them to be affected.</p>
+<p>NAS identification attributes supported by mpd:
+<pre>
+N   Name
+4   NAS-IP-Address
+</pre>
+</p>
+<p>Session identification attributes supported by mpd:
+<pre>
+N   Name
+1   User-Name
+5   NAS-Port
+8   Framed-IP-Address
+30  Called-Station-Id
+31  Calling-Station-Id
+44  Acct-Session-Id
+50  Acct-Multi-Session-Id
+
+    mpd VSA (12341)
+12  mpd-link
+13  mpd-bundle
+14  mpd-iface
+15  mpd-iface-index
+</pre>
+</p>
+<p>Session parameters attributes supported by mpd:
+<pre>
+N   Name
+24  State
+25  Class
+27  Session-Timeout
+28  Idle-Timeout
+85  Acct-Interim-Interval
+
+    mpd VSA (12341)
+1   mpd-rule
+2   mpd-pipe
+3   mpd-queue
+4   mpd-table
+5   mpd-table-static
+7   mpd-filter
+8   mpd-limit
+16  mpd-input-acct
+17  mpd-output-acct
+</pre>
+</p>
+<p>Received in CoA session parameters replace existing ones. If some parameter
+is not received, it keeps it's previous value for standard attributes,
+and getting cleared for mpd's VSAs.</p>
+<p>Note that CoA request always restarts Session and Idle timers for matching
+interfaces, and restarts Accounting Update timer for matching links, if new
+value received.</p>
+
+</dl>
+</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Dynamic Authorization</EM><BR>
+<b>Previous:</b> <A HREF="mpd31.html"><EM>External authentication</EM></A><BR>
+<b>Next:</b> <A HREF="mpd33.html"><EM>Traffic accounting</EM></A>
+
+
+
+</BODY>
+</HTML>

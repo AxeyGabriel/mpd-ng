@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>IPCP layer</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>IPCP layer</EM><BR>
+<b>Previous:</b> <A HREF="mpd25.html"><EM>MPPC protocol</EM></A><BR>
+<b>Next:</b> <A HREF="mpd27.html"><EM>IPv6CP layer</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="26"></A>4.7. IPCP layer<A NAME="ipcp"></A></H2>
+
+<p>This chapter describes commands that configure the IP Control
+Protocol (IPCP) layer. To enable IPCP, <code>ipcp</code> option should be
+enabled at the bundle layer. All of these commands apply to the currently
+active bundle.</p>
+<p>
+<dl>
+
+<dt><b><code>set ipcp ranges (<em>local/width</em>|ippool <em>pool</em>) (<em>remote/width</em>|ippool <em>pool</em>)</code></b><dd><p>This command determines what IP addresses mpd will allow to be
+negotiated at the local and remote ends of the link. For each
+endpoint, we have a target address and a netmask width.  The
+<code><em>width</em></code> determines how flexible we are, i.e., how
+close the actual negotiated address must be to the target address.
+A <code><em>width</em></code> of 32 means they must match exactly; a
+<code><em>width</em></code> of zero means any address is suitable. For
+example, <code>192.168.1.17/25</code> means that IP address
+<code>192.168.1.17</code> is desired, but any IP address in the range
+<code>192.168.1.0</code> through <code>192.168.1.128</code> is acceptable.</p>
+<p>By convention, the <code><em>local</em></code> address may be
+<code>0.0.0.0</code> to request that the remote server assign us an IP
+address. Of course, for this to work the remote side must know
+<em>a priori</em> what our local IP address should be.</p>
+<p>The <code><em>remote</em></code> address should <em>not</em> be
+<code>0.0.0.0</code>. This is so if the peer requests <code>0.0.0.0</code>,
+we have some address to give him.  The <code><em>width</em></code> may
+of course be zero.</p>
+<p>It is also possible to specify ippool name to use for assigning remote ip.
+In such case width 32 is assumed.</p>
+<p>If the two sides cannot agree on the IP address assignments after
+repeated negotiation attempts, then the connection will fail. This
+is manifested with the error message ``IPCP: not converging.''</p>
+
+<dt><b><code>set ipcp dns <em>primary</em> [ <em>secondary</em> ]</code></b><dd><p>Some PPP clients request DNS server information from their remote peer.
+This commands enables mpd to have an answer for any such clients.
+This command is especially useful for supplying information to PPTP clients.
+One or two DNS server IP addresses may be given. An address of
+<code>0.0.0.0</code> erases that entry.</p>
+
+<dt><b><code>set ipcp nbns <em>primary</em> [ <em>secondary</em> ]</code></b><dd><p>Some Microsoft PPP clients request NetBIOS name server (NBNS)
+information from their remote peer.  This commands enables mpd to
+have an answer for any such clients.  This command is especially
+useful for supplying information to PPTP clients.  One or two NBNS
+server IP addresses may be given. An address of <code>0.0.0.0</code>
+erases that entry.</p>
+
+<dt><b><code>set ipcp accept <em>option ...</em> </code></b><dd>
+<dt><b><code>set ipcp deny <em>option ...</em> </code></b><dd>
+<dt><b><code>set ipcp enable <em>option ...</em> </code></b><dd>
+<dt><b><code>set ipcp disable <em>option ...</em> </code></b><dd>
+<dt><b><code>set ipcp yes <em>option ...</em> </code></b><dd>
+<dt><b><code>set ipcp no <em>option ...</em> </code></b><dd>
+<p>These commands configure various IPCP options. The <code><b>vjcomp</b></code>
+option is <em>bi-directional</em> in that it can be independently
+enabled and disabled in each direction.</p>
+<p>The <code><b>enable</b></code> and <code><b>disable</b></code> commands determine
+whether we want the corresponding option.
+The <code><b>accept</b></code> and <code><b>deny</b></code> commands determine
+whether we will allow the peer to request the corresponding option.</p>
+
+<p>The <b><code>yes</code></b> command is the same as
+<code><b>enable</b></code> and <code><b>accept</b></code>.
+The <b><code>no</code></b> command is the same as
+<code><b>disable</b></code> and <code><b>deny</b></code>.</p>
+
+</dl>
+</p>
+
+<p>The options available at the IPCP layer are:</p>
+<p>
+<dl>
+
+<dt><b><code>vjcomp</code></b><dd><p>This option enables Van Jacobson TCP header compression, which saves
+several bytes per TCP data packet. You almost always want this option.
+This compression ineffective for TCP connections with enabled modern 
+extensions like time stamping or SACK, which modify TCP options between 
+sequential packets.</p>
+<p>Default <code><b>enable</b></code> and <code><b>accept</b></code>.</p>
+
+<dt><b><code>req-pri-dns </code></b><dd>
+<dt><b><code>req-sec-dns </code></b><dd>
+<dt><b><code>req-pri-nbns </code></b><dd>
+<dt><b><code>req-sec-nbns </code></b><dd>
+<p>Enabling these options causes mpd to request primary and/or secondary
+DNS and/or NBNS servers from the remote peer during negotiation.</p>
+<p>If any DNS servers are supplied by the peer, they will appear as
+parameters to the script specified by the <code>set iface up-script</code>
+command, if any.</p>
+<p>Currently, mpd does not use the NBNS values for anything; they just
+appear in the log. A future revision may actually do something with them.</p>
+
+</dl>
+</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>IPCP layer</EM><BR>
+<b>Previous:</b> <A HREF="mpd25.html"><EM>MPPC protocol</EM></A><BR>
+<b>Next:</b> <A HREF="mpd27.html"><EM>IPv6CP layer</EM></A>
+
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Mpd command line interface</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd9.html"><EM>Running Mpd</EM></A>
+ <b>:</b> <EM>Mpd command line interface</EM><BR>
+<b>Previous:</b> <A HREF="mpd15.html"><EM><code>mpd.script</code></EM></A><BR>
+<b>Next:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="16"></A>3.3. Mpd command line interface<A NAME="cli"></A></H2>
+<p>Mpd provides to user a command line interface on stdin and 
+TCP port. Here mpd commands can be entered to
+configure the various layers and check
+the status of the defined bundles and links.
+The commands available at the command line interface
+are exactly the same ones available in the
+<code>mpd.conf</code> config file.</p>
+<p>At any given time, there is always exists an <em>active context</em>
+shich includes active link, bundle and repeater. These name are
+shown in the prompt. Here is an example of running mpd
+with a configuration in <code>mpd.conf</code> that defines
+a bundle <code>myisp</code> containing two links <code>modem1</code>
+and <code>modem2</code>:
+<blockquote><code>
+<pre>
+$ mpd config1
+Multi-link PPP daemon for FreeBSD
+
+process 26177 started, version 5.0 (root@orphanage.alkar.net 13:16 22-Sep-2007)
+[modem1]
+</pre>
+</code></blockquote>
+
+By that time, mpd has already read in and executed all 
+the commands associated with the configuration
+<code>config1</code>, which defines the bundle <code>myisp</code>.</p>
+<p>To control mpd runtime you also can connect to mpd's Telnet console.
+<blockquote><code>
+<pre>
+&gt; telnet 0 5005
+Trying 0.0.0.0...
+Connected to 0.
+Escape character is '^]'.
+Multi-link PPP daemon for FreeBSD
+
+Username: Admin
+Password: 
+Mpd pid 1419, version 5.0a1 (root@orphanage.alkar.net 13:16 22-Sep-2007)
+
+[modem1]
+</pre>
+</code></blockquote>
+</p>
+<p>The prompt <code>[modem1]</code> shows the currently active
+link (<code>modem1</code>). Any link specific commands issued
+at this point will apply to <code>modem1</code>.</p>
+<p>To change the active link, bundle or repeater, use the
+<code>link</code>, <code>bundle</code> or <code>repeater</code> command:
+<blockquote><code>
+<pre>
+[modem1] link modem2
+[modem2] 
+</pre>
+</code></blockquote>
+
+Now any commands entered apply to <code>myisp</code> or
+<code>modem2</code>, as appropriate. This technique works
+the same way in <code>mpd.conf</code>. Also, if changing
+the link requires changing bundles as well, mpd will do
+that too.</p>
+<p>The available commands are described in the next chapter.
+When mpd is running, the <code>help</code> can be used to
+get more information on a specific command:
+<blockquote><code>
+<pre>
+[modem2] help show
+Commands available under "show":
+ bundle   : Bundle status                repeater : Repeater status
+ ccp      : CCP status                   ecp      : ECP status
+ eap      : EAP status                   events   : Current events
+ ipcp     : IPCP status                  ipv6cp   : IPV6CP status
+ iface    : Interface status             routes   : IP routing table
+ layers   : Layers to open/close         device   : Physical device status
+ link     : Link status                  auth     : Auth status
+ radius   : RADIUS status                lcp      : LCP status
+ nat      : NAT status                   mem      : Memory map
+ console  : Console status               web      : Web status
+ global   : Global settings              types    : Supported device types
+ version  : Version string               summary  : Daemon status summary
+[modem2]
+</pre>
+</code></blockquote>
+</p>
+<p>Mpd allows you to use only a prefix of a command, as long as the
+command is unambigous:
+<blockquote><code>
+<pre>
+[modem2] b
+Defined bundles:
+        Bundle         Links
+        ------         -----
+        myisp          modem2[DOWN]
+[modem2] s
+s: ambiguous command
+</pre>
+</code></blockquote>
+</p>
+
+
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd9.html"><EM>Running Mpd</EM></A>
+ <b>:</b> <EM>Mpd command line interface</EM><BR>
+<b>Previous:</b> <A HREF="mpd15.html"><EM><code>mpd.script</code></EM></A><BR>
+<b>Next:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>IP address pools</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>IP address pools</EM><BR>
+<b>Previous:</b> <A HREF="mpd37.html"><EM>Typed Accounting Update</EM></A><BR>
+<b>Next:</b> <A HREF="mpd39.html"><EM>Network Address Translation (NAT)</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="38"></A>4.13. IP address pools<A NAME="ippool"></A></H2>
+<p>Mpd implements dynamic IP addresses pool management. When user
+is authenticated and auth backend have not provided IP address,
+it can be taken from pool. To make it work you should create
+one or more address pools with 'set ippool add ...'
+command and define which pool should be used with
+'set ipcp ranges ... ippool ...' command, radius-auth Framed-Pool attribute
+or ext-auth FRAMED_POOL attribute.</p>
+<p>
+<dl>
+
+<dt><b><code>set ippool add <em>pool</em> <em>first</em> <em>last</em></code></b><dd><p>This command creates new IP address pool if it not exists and adds specified 
+address range to it.</p>
+
+</dl>
+</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>IP address pools</EM><BR>
+<b>Previous:</b> <A HREF="mpd37.html"><EM>Typed Accounting Update</EM></A><BR>
+<b>Next:</b> <A HREF="mpd39.html"><EM>Network Address Translation (NAT)</EM></A>
+
+
+
+</BODY>
+</HTML>

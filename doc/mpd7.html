@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Installing mpd</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd5.html"><EM>Installation</EM></A>
+ <b>:</b> <EM>Installing mpd</EM><BR>
+<b>Previous:</b> <A HREF="mpd6.html"><EM>Getting mpd</EM></A><BR>
+<b>Next:</b> <A HREF="mpd8.html"><EM>Building mpd</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="7"></A>2.2. Installing mpd<A NAME="installing"></A></H2>
+<p>If you use the FreeBSD package or port, mpd will be
+automatically installed
+into <code>/usr/local/sbin/mpd5</code>.
+with the default set of device types compiled into it.
+In order to run, mpd needs
+a few configuration files. The directory
+<code>/usr/local/etc/mpd5</code> is created
+to hold them.
+In it you will find some sample configuration files.</p>
+<p>Before you can run mpd, you must set up your site-specific
+configuration files. These files are:
+<dl>
+
+<dt><b> <b><code>mpd.conf</code></b></b><dd><p>This file defines one or more <b>configurations</b>.
+When mpd is invoked, you specify the name of a
+configuration on the command line. This configuration
+(which merely consists of a series of mpd commands) is loaded.
+If no configuration is given, 'default' configuration
+is loaded.</p>
+
+<p>Each configuration defines one or more bundles, links and repeaters.
+They can be defined with the <b><code>create</code></b> command.
+Subsequent commands in the configuration configure the various
+layers for that item.</p>
+
+<dt><b> <b><code>mpd.secret</code></b></b><dd><p>This file contains login, password pairs. This is where
+mpd looks to find all authentication information. This
+file should be readable only by <code>root</code>.</p>
+
+<dt><b> <b><code>mpd.script</code></b></b><dd><p>This file contains chat scripts for modem devices.</p>
+
+</dl>
+</p>
+
+
+
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd5.html"><EM>Installation</EM></A>
+ <b>:</b> <EM>Installing mpd</EM><BR>
+<b>Previous:</b> <A HREF="mpd6.html"><EM>Getting mpd</EM></A><BR>
+<b>Next:</b> <A HREF="mpd8.html"><EM>Building mpd</EM></A>
+
+
+
+</BODY>
+</HTML>

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>Control console</TITLE>
+</HEAD>
+<BODY text="#000000" bgcolor="#ffffff">
+
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Control console</EM><BR>
+<b>Previous:</b> <A HREF="mpd39.html"><EM>Network Address Translation (NAT)</EM></A><BR>
+<b>Next:</b> <A HREF="mpd41.html"><EM>Web server</EM></A>
+
+
+<HR NOSHADE>
+  <H2><A NAME="40"></A>4.15. Control console<A NAME="console"></A></H2>
+
+<p>This chapter describes commands for configuring Mpd's console.
+The console can be accessed via IPv4 or IPv6 using telnet.
+Multiple telnet connections are allowed.</p>
+<p>
+<dl>
+
+
+<dt><b><code>set console open</code></b><dd><p>Opens the console, i.e., creates the listening TCP socket.</p>
+
+<dt><b><code>set console close</code></b><dd><p>Closes the console, i.e., closes the listening TCP socket.
+Only the listener is affected; active sessions are not closed.</p>
+
+<dt><b><code>set console self <em>ip</em> [ <em>port</em> ]</code></b><dd><p>Sets the credentials for the console-listener. After changing one of these
+options, the console must be closed and re-opened for the changes to
+take effect.</p>
+<p>The default is '127.0.0.1 5005'.</p>
+
+</dl>
+</p>
+
+
+<p>
+<dl>
+
+<dt><b><code>set console enable <em>option ...</em><br>
+set console disable <em>option ...</em></code></b><dd><p>These commands configure various console options.</p>
+<p>The options available for the console are:</p>
+
+<dt><b><code>logging</code></b><dd><p>This options enables writing of logging messages to the current console.</p>
+<p>The default is enable for stdout and disable for the rest.</p>
+
+<dt><b><code>auth</code></b><dd><p>This options enables authorized login to console. This is a read-only value.</p>
+<p>The default is enable.</p>
+
+</dl>
+</p>
+
+ <HR NOSHADE>
+<A HREF="mpd.html"><EM>Mpd 5.9 User Manual</EM></A>
+ <b>:</b> <A HREF="mpd17.html"><EM>Configuring Mpd</EM></A>
+ <b>:</b> <EM>Control console</EM><BR>
+<b>Previous:</b> <A HREF="mpd39.html"><EM>Network Address Translation (NAT)</EM></A><BR>
+<b>Next:</b> <A HREF="mpd41.html"><EM>Web server</EM></A>
+
+
+
+</BODY>
+</HTML>
